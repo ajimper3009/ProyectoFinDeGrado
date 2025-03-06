@@ -18,11 +18,11 @@ AlquilaPistas es una plataforma web destinada a la gestión del alquiler de pist
 
 Los principales objetivos de este proyecto son:
 
-✅ Permitir la reserva de pistas de voleibol de manera online.
-✅ Implementar un sistema de gestión para administradores y usuarios.
-✅ Facilitar la creación y gestión de grupos de jugadores.
-✅ Optimizar el uso de las pistas mediante un sistema de horarios y disponibilidad.
-✅ Ofrecer una experiencia de usuario intuitiva y eficiente.
+- ✅ Permitir la reserva de pistas de voleibol de manera online.
+- ✅ Implementar un sistema de gestión para administradores y usuarios.
+- ✅ Facilitar la creación y gestión de grupos de jugadores.
+- ✅ Optimizar el uso de las pistas mediante un sistema de horarios y disponibilidad.
+- ✅ Ofrecer una experiencia de usuario intuitiva y eficiente.
 
 ---
 
