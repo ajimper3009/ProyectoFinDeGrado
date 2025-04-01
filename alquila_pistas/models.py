@@ -8,13 +8,15 @@ class User(models.Model):
     gender_type = models.CharField(max_length=20, choices=[
         ('male', 'Masculino'),
         ('female', 'Feminino'),
-        ('mixed', 'Mixto'),
+        ('binary', 'Binario'),
     ])
 
     def __str__(self):
         return f"{self.name}, {self.age}, {self.location}, {self.gender_type}"
 
 class Court(models.Model):
+    name = models.CharField(max_length=50)
+    location = models.CharField(max_length=50)
     court_type = models.CharField(max_length=50, choices=[
         ('inside', 'Interior'),
         ('outside', 'Exterior'),
