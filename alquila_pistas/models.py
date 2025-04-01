@@ -18,14 +18,24 @@ class Court(models.Model):
     name = models.CharField(max_length=50)
     location = models.CharField(max_length=50)
     court_type = models.CharField(max_length=50, choices=[
-        ('inside', 'Interior'),
-        ('outside', 'Exterior'),
+        ('Sports pavilion', 'Pabellon_deportivo'),
+        ('beach', 'Playa'),
     ])
-    gender_type = models.CharField(max_length=20, choices=[
+    equip_type = models.CharField(max_length=50, choices=[
         ('male', 'Masculino'),
         ('female', 'Feminino'),
         ('mixed', 'Mixto'),
     ])
 
     def __str__(self):
-        return f"{self.court_type}, {self.gender_type}"
+        return f"{self.court_type}, {self.court_type}"
+
+class Reservation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    court = models.ForeignKey(Court, on_delete=models.CASCADE)
+    date = models.DateField()
+    start_time = models.DateTimeField()
+    finish_time = models.DateTimeField()
+
+    def __str__(self):
+        return f"{self.user}, {self.court}, {self.date}, {self.start_time}, {self.finish_time}"
