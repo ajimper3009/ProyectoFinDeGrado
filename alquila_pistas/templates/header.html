@@ -1,16 +1,43 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-dark">
-    <ul class="menu cf">
-        <li><a href="alquila_pistas/index.html">Inicio</a></li>
-        <li>
-            <a href="alquila_pistas/rent.html">Alquiler de Pistas</a>
-            <ul class="submenu">
-                <li><a href="alquila_pistas/create_group.html">Crear grupo</a></li>
-                <li><a href="alquila_pistas/join_group.html">Unirse a un grupo</a></li>
-                <li><a href="alquila_pistas/Sports_pavilion_court">Pistas de Pabellon</a></li>
-                <li><a href="alquila_pistas/beach_court">Pistas de playa</a></li>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top shadow">
+    <div class="container-fluid">
+
+        <!-- Logo a la izquierda, en negrita y más visible -->
+
+        <a class="navbar-brand fw-bold text-uppercase" href="{% url 'alquila_pistas:IndexView' %}">AlquilaPistas</a>
+
+        <!-- Botón para responsive -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Enlaces alineados a la derecha -->
+        <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+            <ul class="navbar-nav align-items-center gap-2">
+
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Alquiler de Pistas
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="{% url 'alquila_pistas:create_group' %}">Crear grupo</a></li>
+                        <li><a class="dropdown-item" href="{% url 'alquila_pistas:JoinGroup' %}">Unirse a un grupo</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'alquila_pistas:SportsPavilionCourtView' %}">Pistas de
+                            Pabellón</a></li>
+                        <li><a class="dropdown-item" href="{% url 'alquila_pistas:BeachCourtView' %}">Pistas de
+                            playa</a></li>
+                    </ul>
+                </li>
+
+                <!-- Otros enlaces -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'alquila_pistas:AboutView' %}">Sobre Nosotros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'alquila_pistas:ContactView' %}">Contáctanos</a>
+                </li>
             </ul>
-        </li>
-        <li><a href="alquila_pistas/about us">Sobre Nosotros</a></li>
-        <li><a href="alquila_pistas/contact us">Contactanos</a></li>
-    </ul>
+        </div>
+    </div>
 </nav>

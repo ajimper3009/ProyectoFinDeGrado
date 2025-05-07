@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block links %}
+    <!-- Contenedor centrado y espaciamiento -->
+    <div class="container my-5 d-flex justify-content-center">
+
+        <!-- Carta ancha y estilizada -->
+        <div class="card w-100 shadow-lg border-0 rounded-4" style="max-width: 1140px;">
+
+            <!-- Imagen superior -->
+            <img src="../../static/img/foto1.jpeg" class="card-img-top rounded-top-4" alt="Imagen de pistas de vóley">
+
+            <!-- Contenido con estilo tipográfico -->
+            <div class="card-body p-5 fs-5 lh-lg text-justify" style="font-family: 'Segoe UI', sans-serif;">
+
+                <h2 class="mb-4 text-center text-primary fw-bold">Bienvenido a AlquilaPistas</h2>
+
+                <p><strong>Tu espacio ideal para jugar vóley.</strong></p>
+
+                <p>¿Buscas una pista de vóley para entrenar, jugar con amigos o celebrar un torneo? En <strong>AlquilaPistas</strong>
+                    te lo ponemos fácil. Reserva online tu pista favorita en solo unos clics y disfruta del deporte que
+                    más te gusta en instalaciones cómodas, bien cuidadas y con todos los servicios que necesitas.</p>
+
+                <ul class="list-unstyled">
+                    <li class="mb-3">
+                        <span class="fw-semibold text-success">🏐 Pistas indoor y outdoor:</span>
+                        Elige entre canchas cubiertas o al aire libre, con suelo de arena, césped sintético o superficie
+                        dura, según tu estilo de juego.
+                    </li>
+                    <li class="mb-3">
+                        <span class="fw-semibold text-success">📍 Ubicaciones accesibles:</span>
+                        Encuentra pistas cerca de ti gracias a nuestro buscador por ubicación. ¡Juega donde y cuando
+                        quieras!
+                    </li>
+                    <li class="mb-3">
+                        <span class="fw-semibold text-success">📅 Reserva fácil:</span>
+                        Consulta disponibilidad en tiempo real y reserva tu pista en segundos desde cualquier
+                        dispositivo. Sin llamadas, sin complicaciones.
+                    </li>
+                    <li>
+                        <span class="fw-semibold text-success">👥 Ideal para grupos y eventos:</span>
+                        Organiza partidos, entrenamientos o eventos privados. También ofrecemos tarifas especiales para
+                        clubes y grupos.
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -9,7 +9,7 @@
     <title>{% block title %}AlquilaPistas{% endblock %}</title>
     {% block links %}{% endblock %}
 </head>
-<body class="d-flex flex-column min-vh-100" style="background-image: url('{% static 'img/foto1.jpeg' %}'); background-size:cover ; background-repeat: no-repeat; background-position: center;background-attachment: fixed; min-height: 100vh;">
+<body class="d-flex flex-column min-vh-100" style="background-image: url('{% static 'img/foto1.jpeg' %}'); background-size:cover ; background-repeat: no-repeat; background-position: center;background-attachment: fixed; min-height: 100vh; padding-top: 70px;">
     {% include 'header.html' %}
     <div class="container-fluid flex-grow-1 text-white">
         {% block content %}{% endblock %}

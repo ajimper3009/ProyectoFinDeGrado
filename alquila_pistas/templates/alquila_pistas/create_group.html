@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Crear Grupo{% endblock %}
+{% block content %}
+    <h1>Crear Grupo</h1>
+    <form method="POST" action="{% url 'alquila_pistas:create_group' %}"></form>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Guardar">
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block links %}
+    <div class="container my-5">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-body p-5">
+                <h3 class="mb-4 text-center text-primary fw-bold">Contáctanos</h3>
+                <form>
+                    <div class="mb-3">
+                        <label for="nombreInput" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombreInput" placeholder="Tu nombre">
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellidosInput" class="form-label">Apellidos</label>
+                        <input type="text" class="form-control" id="apellidosInput" placeholder="Tus apellidos">
+                    </div>
+                    <div class="mb-3">
+                        <label for="emailInput" class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" id="emailInput" placeholder="nombre@ejemplo.com">
+                    </div>
+                    <div class="mb-4">
+                        <label for="mensajeTextarea" class="form-label">Mensaje</label>
+                        <textarea class="form-control" id="mensajeTextarea" rows="4"
+                                  placeholder="Escríbenos tu mensaje..."></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary px-4">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

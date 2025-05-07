@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Login / AlquilaPistas{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center vh-50">
+        <div class="card p-5 shadow-md  text-light mt-5"
+             style="max-width: 500px; width: 100%; border-radius: 12px;background-color: rgba(21,21,21,0.73);">
+            <h2 class="text-center fs-1 mb-3">Iniciar Sesión</h2>
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="mb-4">
+                    <label for="id_username" class="form-label">Usuario:</label>
+                    <input type="text" name="username" id="id_username" class="form-control" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="id_password" class="form-label">Contraseña:</label>
+                    <input type="password" name="password" id="id_password" class="form-control" required>
+                </div>
+
+                {% if form.errors %}
+                    {% for error in form.non_field_errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                </div>
+                <p class="lead mt-4 pt-2" style="border-top: 3px solid darkslategray">¿Todavia no tienes Cuenta?</p>
+                <a href="{% url 'alquila_pistas:register' %}" class="btn btn-warning btn-lg w-100">Registrarse</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
