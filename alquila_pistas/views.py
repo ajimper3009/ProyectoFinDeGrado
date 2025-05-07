@@ -16,29 +16,29 @@ from alquila_pistas.models import *
 class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/index.html'
 
-class CreateGroupView(CreateView):
+class CreateGroupView(LoginRequiredMixin, CreateView):
     model = Group
     template_name = 'alquila_pistas/create_group.html'
     fields = ['name', 'users', 'court']
     success_url = reverse_lazy("alquila_pistas:create_group")
 
-class AboutView(TemplateView):
+class AboutView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/about_us.html'
 
-class ContactView(TemplateView):
+class ContactView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/contact.html'
 
-class RentView(TemplateView):
+class RentView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/rent.html'
 
-class JoinGroup(TemplateView):
+class JoinGroup(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/join_group.html'
 
-class SportsPavilionCourtView(TemplateView):
+class SportsPavilionCourtView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/sports_pavilion_court.html'
 
 
-class BeachCourtView(TemplateView):
+class BeachCourtView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/beach_court.html'
 
 

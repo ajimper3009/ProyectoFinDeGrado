@@ -15,7 +15,7 @@ class ContactForm:
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     error_messages = {
-        "password_mismatch": ("Las contraseñas no coinciden máquina, ESPABILA"),
+        "password_mismatch": ("Las contraseñas no coinciden, por favor intentelo de nuevo"),
     }
     class Meta:
         model = User

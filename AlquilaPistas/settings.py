@@ -125,7 +125,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Definir la URL a la que los usuarios serán redirigidos si intentan acceder a una página que requiere autenticación
-LOGIN_URL = 'login/'
+LOGIN_URL = '/login/'
 
 # Definir la URL a la que el usuario será redirigido después de iniciar sesión con éxito
 LOGIN_REDIRECT_URL = '/'
