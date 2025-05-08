@@ -38,6 +38,12 @@
                     <a class="nav-link" href="{% url 'alquila_pistas:ContactView' %}">Contáctanos</a>
                 </li>
             </ul>
+            <div class="text-end">
+                <form method="post" action="{% url 'alquila_pistas:logout' %}">
+                    {% csrf_token %}
+                    <input type="submit" value="Cerrar sesión" class="btn btn-primary">
+                </form>
+            </div>
         </div>
     </div>
 </nav>

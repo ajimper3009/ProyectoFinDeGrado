@@ -131,4 +131,4 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
 # Definir la URL a la que el usuario será redirigido después de cerrar sesión
-LOGOUT_REDIRECT_URL = 'logout/'
+LOGOUT_REDIRECT_URL = '/logout/'

@@ -21,14 +21,9 @@ class Court(models.Model):
         ('Sports pavilion', 'Pabellon_deportivo'),
         ('beach', 'Playa'),
     ])
-    equip_type = models.CharField(max_length=50, default=" ", choices=[
-        ('male', 'Masculino'),
-        ('female', 'Feminino'),
-        ('mixed', 'Mixto'),
-    ])
 
     def __str__(self):
-        return f"{self.court_type}, {self.court_type}"
+        return f"{self.name}, {self.location}, {self.court_type}"
 
 class Reservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -40,7 +35,11 @@ class Reservation(models.Model):
     def __str__(self):
         return f"{self.user}, {self.court}, {self.date}, {self.start_time}, {self.finish_time}"
 
-class Group (models.Model):
+class Group(models.Model):
     name = models.CharField(max_length=50)
     users = models.ManyToManyField(User)
     court = models.ForeignKey(Court, on_delete=models.CASCADE)
+    reservation = models.OneToOneField(Reservation, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.court.name}"

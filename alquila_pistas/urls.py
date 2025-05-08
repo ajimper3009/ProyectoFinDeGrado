@@ -1,4 +1,4 @@
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path, include
 from . import views
 
@@ -15,6 +15,6 @@ urlpatterns = [
     path('sports_pavilion_court/', views.SportsPavilionCourtView.as_view(), name='SportsPavilionCourtView'),
     path('beach_court/', views.BeachCourtView.as_view(), name='BeachCourtView'),
     path('login/', LoginView.as_view(template_name='registration/login.html'), name='login'),
-    path('logout', views.logout_view, name='logout'),
+    path('logout', LogoutView.as_view(next_page='/'), name='logout'),
     path('register/', views.RegisterView.as_view(), name='register'),
 ]
