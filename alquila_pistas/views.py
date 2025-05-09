@@ -1,12 +1,9 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.checks import messages
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.utils.dateparse import parse_datetime
-from django.views.generic import TemplateView, CreateView, FormView
-from .models import Group, Court, User
+from django.views.generic import TemplateView, CreateView, FormView, ListView
 from alquila_pistas.forms import CustomUserCreationForm, CreateGroupForm
 from alquila_pistas.models import *
 
@@ -20,14 +17,24 @@ class CreateGroupView(LoginRequiredMixin, CreateView):
     model = Group
     form_class = CreateGroupForm
     template_name = 'alquila_pistas/create_group.html'
-    success_url = reverse_lazy('alquila_pistas:index')
+    success_url = reverse_lazy('alquila_pistas:IndexView')
 
     def form_valid(self, form):
         group = form.save(commit=False)
 
+        # Obtener o crear el usuario basado en el usuario autenticado
+        current_user, created = User.objects.get_or_create(
+            name=self.request.user.username,
+            defaults={
+                'age': 0,  # Valor por defecto
+                'location': '',  # Valor por defecto
+                'gender_type': 'male'  # Valor por defecto
+            }
+        )
+
         if form.cleaned_data['confirm_reservation'] == 'True':
             reservation = Reservation.objects.create(
-                user=self.request.user,
+                user=current_user,
                 court=group.court,
                 date=timezone.now().date(),
                 start_time=timezone.now(),
@@ -36,8 +43,8 @@ class CreateGroupView(LoginRequiredMixin, CreateView):
             group.reservation = reservation
 
         group.save()
-        # Añadir el usuario actual al grupo
-        group.users.add(self.request.user)
+        group.users.add(current_user)
+
         return super().form_valid(form)
 
 
@@ -50,14 +57,23 @@ class ContactView(LoginRequiredMixin, TemplateView):
 class RentView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/rent.html'
 
-class JoinGroup(LoginRequiredMixin, TemplateView):
+
+class JoinGroupView(LoginRequiredMixin, ListView):
+    model = Group
     template_name = 'alquila_pistas/join_group.html'
+    context_object_name = 'groups'
 
-    def join_group_view(request):
-        # Obtener todos los grupos
+    def get_queryset(self):
+        # Obtener todos los grupos sin exclusión
         groups = Group.objects.all()
+        print("Grupos encontrados:", groups)  # Para depuración
+        return groups
 
-        return render(request, 'alquila_pistas/join_group.html', {'groups': groups})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print("Contexto:", context['groups'])  # Para depuración
+        return context
+
 
 class SportsPavilionCourtView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/sports_pavilion_court.html'
