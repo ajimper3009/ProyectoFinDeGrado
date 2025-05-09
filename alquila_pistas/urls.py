@@ -7,7 +7,7 @@ app_name = 'alquila_pistas'
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='IndexView'),
-    path('create_group/', views.CreateGroupView.as_view(), name='create_group'),
+    path('create-group/', views.CreateGroupView.as_view(), name='create_group'),
     path('about_us/', views.AboutView.as_view(), name='AboutView'),
     path('contact/', views.ContactView.as_view(), name='ContactView'),
     path('rent/', views.RentView.as_view(), name='RentView'),

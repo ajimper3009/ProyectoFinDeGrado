@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 from django.views.generic import TemplateView, CreateView, FormView
 from .models import Group, Court, User
-from alquila_pistas.forms import CustomUserCreationForm
+from alquila_pistas.forms import CustomUserCreationForm, CreateGroupForm
 from alquila_pistas.models import *
 
 
@@ -16,63 +16,30 @@ class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/index.html'
 
 
-
-class CreateGroupView(LoginRequiredMixin, TemplateView):
+class CreateGroupView(LoginRequiredMixin, CreateView):
+    model = Group
+    form_class = CreateGroupForm
     template_name = 'alquila_pistas/create_group.html'
-    fields = ['name', 'court', 'users']  # Puedes usar un formulario personalizado también
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('alquila_pistas:index')
 
-    def __init__(self, **kwargs):
-        super().__init__(kwargs)
-        self.POST = None
-        self.method = None
+    def form_valid(self, form):
+        group = form.save(commit=False)
 
-    def crear_grupo(request):
-        courts = Court.objects.all()
-        users = User.objects.all()
+        if form.cleaned_data['confirm_reservation'] == 'True':
+            reservation = Reservation.objects.create(
+                user=self.request.user,
+                court=group.court,
+                date=timezone.now().date(),
+                start_time=timezone.now(),
+                finish_time=timezone.now() + timezone.timedelta(hours=1.5)
+            )
+            group.reservation = reservation
 
-        if request.method == 'POST':
-            name = request.POST['name']
-            court_id = request.POST['court']
-            date = request.POST['date']
-            start_time = request.POST['start_time']
-            finish_time = request.POST['finish_time']
-            selected_user_ids = request.POST.getlist('users')
+        group.save()
+        # Añadir el usuario actual al grupo
+        group.users.add(self.request.user)
+        return super().form_valid(form)
 
-            start_datetime = timezone.make_aware(parse_datetime(f"{date}T{start_time}"))
-            finish_datetime = timezone.make_aware(parse_datetime(f"{date}T{finish_time}"))
-
-            if finish_datetime <= start_datetime:
-                messages.error(request, "La hora de fin debe ser posterior a la de inicio.")
-                return render(request, 'alquila_pistas/create_group.html', {'courts': courts, 'users': users})
-
-            court = Court.objects.get(id=court_id)
-
-            # Verificar solapamiento de reservas
-            conflicto = Reservation.objects.filter(
-                court=court,
-                date=date,
-                start_time__lt=finish_datetime,
-                finish_time__gt=start_datetime
-            ).exists()
-
-            if conflicto:
-                messages.error(request, "La pista ya está reservada en ese horario.")
-            else:
-                reserva = Reservation.objects.create(
-                    user=User.objects.first(),  # Cambia esto según lógica real
-                    court=court,
-                    date=date,
-                    start_time=start_datetime,
-                    finish_time=finish_datetime
-                )
-
-                grupo = Group.objects.create(name=name, court=court, reservation=reserva)
-                grupo.users.set(User.objects.filter(id__in=selected_user_ids))
-                messages.success(request, "Grupo creado correctamente.")
-                return redirect('nombre_de_tu_home')
-
-        return render(request, 'alquila_pistas/create_group.html', {'courts': courts, 'users': users})
 
 class AboutView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/about_us.html'
@@ -85,6 +52,12 @@ class RentView(LoginRequiredMixin, TemplateView):
 
 class JoinGroup(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/join_group.html'
+
+    def join_group_view(request):
+        # Obtener todos los grupos
+        groups = Group.objects.all()
+
+        return render(request, 'alquila_pistas/join_group.html', {'groups': groups})
 
 class SportsPavilionCourtView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/sports_pavilion_court.html'

@@ -1,5 +1,23 @@
 {% extends "base.html" %}
 {% load static %}
 {% block links %}
-    <h1>Prueba unirse</h1>
+    <div class="container mt-5">
+    <h2 class="text-white">Únete a un Grupo</h2>
+    {% if groups %}
+        <div class="list-group">
+            {% for group in groups %}
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>{{ group.name }} - {{ group.court.name }}</span>
+                    <form method="POST" action="{% url 'join_group' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="group_id" value="{{ group.id }}">
+                        <button type="submit" class="btn btn-primary">Unirse</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-white">No hay grupos disponibles para unirse en este momento.</p>
+    {% endif %}
+</div>
 {% endblock %}

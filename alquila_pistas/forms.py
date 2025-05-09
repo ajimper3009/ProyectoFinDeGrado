@@ -3,8 +3,25 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth import get_user_model
 
+from alquila_pistas.models import *
+
 User = get_user_model()
 
+
+class CreateGroupForm(forms.ModelForm):
+    confirm_reservation = forms.ChoiceField(
+        choices=[('True', 'Sí'), ('False', 'No')],
+        label='¿Deseas hacer una reserva para este grupo?',
+        widget=forms.RadioSelect
+    )
+
+    class Meta:
+        model = Group
+        fields = ['name', 'court']
+        labels = {
+            'name': 'Nombre del Grupo',
+            'court': 'Pista'
+        }
 
 class ContactForm:
     name = forms.CharField(max_length=100)
