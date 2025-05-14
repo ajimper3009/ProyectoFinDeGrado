@@ -1,3 +1,4 @@
+from datetime import timedelta, datetime
 from email.message import EmailMessage
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -7,7 +8,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.views.generic import TemplateView, CreateView, FormView, ListView
-from alquila_pistas.forms import CustomUserCreationForm, CreateGroupForm, ContactForm
+from alquila_pistas.forms import CustomUserCreationForm, GroupForm
 from alquila_pistas.models import *
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -26,35 +27,29 @@ class IndexView(LoginRequiredMixin, TemplateView):
 
 class CreateGroupView(LoginRequiredMixin, CreateView):
     model = Group
-    form_class = CreateGroupForm
+    form_class = GroupForm
     template_name = 'alquila_pistas/create_group.html'
     success_url = reverse_lazy('alquila_pistas:IndexView')
 
     def form_valid(self, form):
-        group = form.save(commit=False)
+        group = form.save()
 
-        # Obtener o crear el usuario basado en el usuario autenticado
-        current_user, created = User.objects.get_or_create(
-            name=self.request.user.username,
-            defaults={
-                'age': 0,  # Valor por defecto
-                'location': '',  # Valor por defecto
-                'gender_type': 'male'  # Valor por defecto
-            }
-        )
+        if form.cleaned_data.get('make_reservation'):
+            # Combinamos fecha y hora para crear start_time
+            date = form.cleaned_data.get('date')
+            time = form.cleaned_data.get('time')
+            start_datetime = datetime.combine(date, time)
 
-        if form.cleaned_data['confirm_reservation'] == 'True':
-            reservation = Reservation.objects.create(
-                user=current_user,
-                court=group.court,
-                date=timezone.now().date(),
-                start_time=timezone.now(),
-                finish_time=timezone.now() + timezone.timedelta(hours=1.5)
+            # Asumimos que cada reserva dura 1 hora
+            finish_datetime = start_datetime + timedelta(hours=1)
+
+            Reservation.objects.create(
+                user=self.request.user,  # Usuario actual
+                court=form.cleaned_data.get('court'),
+                date=date,
+                start_time=start_datetime,
+                finish_time=finish_datetime
             )
-            group.reservation = reservation
-
-        group.save()
-        group.users.add(current_user)
 
         return super().form_valid(form)
 
