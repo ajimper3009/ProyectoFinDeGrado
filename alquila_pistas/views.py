@@ -85,6 +85,7 @@ class ContactView(LoginRequiredMixin, TemplateView):
                 ['d0370296d4-16a4b8@inbox.mailtrap.io'],
                 reply_to=[email],
             )
+
             try:
                 email_message.send()
                 return redirect(reverse('alquila_pistas:ContactView') + '?ok')
