@@ -23,11 +23,17 @@ class CreateGroupForm(forms.ModelForm):
             'court': 'Pista'
         }
 
-class ContactForm:
-    name = forms.CharField(max_length=100)
-    last_name = forms.CharField(max_length=100)
-    email = forms.EmailField()
-    message = forms.CharField(widget=forms.Textarea)
+class ContactForm(forms.Form):
+    name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'nombreInput'})
+    )
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'id': 'emailInput'})
+    )
+    message = forms.CharField(
+        widget=forms.Textarea(attrs={'class': 'form-control', 'id': 'mensajeTextarea'})
+    )
+
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)

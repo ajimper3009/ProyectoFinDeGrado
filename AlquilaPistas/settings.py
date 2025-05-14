@@ -132,3 +132,9 @@ LOGIN_REDIRECT_URL = '/'
 
 # Definir la URL a la que el usuario será redirigido después de cerrar sesión
 LOGOUT_REDIRECT_URL = '/logout/'
+
+#MAILTRAP
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = 'c8349b08a33f99'
+EMAIL_HOST_PASSWORD = '9b8c4bcaf6a520'
+EMAIL_PORT = '2525'

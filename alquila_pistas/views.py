@@ -1,11 +1,22 @@
+from email.message import EmailMessage
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.core.mail import send_mail
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.views.generic import TemplateView, CreateView, FormView, ListView
-from alquila_pistas.forms import CustomUserCreationForm, CreateGroupForm
+from alquila_pistas.forms import CustomUserCreationForm, CreateGroupForm, ContactForm
 from alquila_pistas.models import *
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
+from django.core.mail import EmailMessage
+from django.shortcuts import redirect
+from django.urls import reverse
+from .forms import ContactForm
+
 
 
 # Create your views here.
@@ -51,8 +62,37 @@ class CreateGroupView(LoginRequiredMixin, CreateView):
 class AboutView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/about_us.html'
 
+
 class ContactView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/contact.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ContactForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+
+            email_message = EmailMessage(
+                'Mensaje de contacto recibido',
+                f'Mensaje enviado por {name} <{email}>\n\n{message}',
+                email,
+                ['d0370296d4-16a4b8@inbox.mailtrap.io'],
+                reply_to=[email],
+            )
+            try:
+                email_message.send()
+                return redirect(reverse('alquila_pistas:ContactView') + '?ok')
+            except:
+                return redirect(reverse('alquila_pistas:ContactView') + '?error')
+
+        return self.render_to_response(self.get_context_data(form=form))
+
 
 class RentView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/rent.html'
@@ -67,8 +107,10 @@ class JoinGroupView(LoginRequiredMixin, ListView):
 class SportsPavilionCourtView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/sports_pavilion_court.html'
 
+
 class BeachCourtView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/beach_court.html'
+
 
 class RegisterView(FormView):
     template_name = 'registration/register.html'
@@ -101,3 +143,21 @@ class JoinGroupSuccessView(LoginRequiredMixin, TemplateView):
             return redirect('alquila_pistas:JoinGroupSuccessView')
         except Group.DoesNotExist:
             return redirect('alquila_pistas:JoinGroup')
+
+# def simple_mail(request):
+#     send_mail(subject='Subject here', message='Here is the message.', from_email='jimenezjotape@gmail.com', recipient_list=['tunnelb76@gmail.com'])
+#
+#     return HttpResponse('Email sent!')
+#
+# def message_mail(request):
+#     email = EmailMessage(
+#         subject='Subject here',
+#         body='Here is the message.',
+#         from_email='jimenezjotape@gmail.com',
+#         to=['tunnelb76@gmail.com'],
+#         bcc=['<EMAIL>'],
+#         reply_to=['<EMAIL>'],
+#     )
+#     email.send()
+#
+#     return HttpResponse('Email sent!')
