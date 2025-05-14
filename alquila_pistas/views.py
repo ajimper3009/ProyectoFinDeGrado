@@ -1,4 +1,4 @@
-from datetime import timedelta, datetime
+from datetime import datetime, timedelta
 from email.message import EmailMessage
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -35,16 +35,13 @@ class CreateGroupView(LoginRequiredMixin, CreateView):
         group = form.save()
 
         if form.cleaned_data.get('make_reservation'):
-            # Combinamos fecha y hora para crear start_time
             date = form.cleaned_data.get('date')
-            time = form.cleaned_data.get('time')
-            start_datetime = datetime.combine(date, time)
-
-            # Asumimos que cada reserva dura 1 hora
-            finish_datetime = start_datetime + timedelta(hours=1)
+            start_time = form.cleaned_data.get('start_time')
+            start_datetime = datetime.combine(date, start_time)
+            finish_datetime = start_datetime + timedelta(hours=1.5)
 
             Reservation.objects.create(
-                user=self.request.user,  # Usuario actual
+                user=self.request.user,
                 court=form.cleaned_data.get('court'),
                 date=date,
                 start_time=start_datetime,

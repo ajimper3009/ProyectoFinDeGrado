@@ -9,63 +9,51 @@ from alquila_pistas.models import *
 User = get_user_model()
 
 
-from django import forms
-from .models import Group, Court
-from datetime import datetime
-
 class GroupForm(forms.ModelForm):
-    name = forms.CharField(
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Introduce el nombre del grupo',
-            'required': True
-        })
-    )
-
     make_reservation = forms.BooleanField(
-        label='¿Desea hacer una reserva ahora?',
         required=False,
-        widget=forms.RadioSelect(choices=[(True, 'Sí'), (False, 'No')])
+        label='¿Quieres hacer una reserva?',
+        widget=forms.CheckboxInput(attrs={'class': 'reservation-toggle'})
     )
-
     court = forms.ModelChoiceField(
         queryset=Court.objects.all(),
         required=False,
-        label='Pista',
-        widget=forms.Select(attrs={
-            'class': 'form-control',
-            'placeholder': 'Selecciona una pista'
-        })
+        label='Pista'
     )
-
+    reservation_name = forms.CharField(
+        max_length=100,
+        required=False,
+        label='Nombre de la reserva'
+    )
     date = forms.DateField(
         required=False,
-        widget=forms.DateInput(attrs={
-            'class': 'form-control',
-            'type': 'date',
-            'min': datetime.now().strftime('%Y-%m-%d')
-        })
+        widget=forms.DateInput(attrs={'type': 'date'}),
+        label='Fecha'
     )
-
-    time = forms.TimeField(
+    start_time = forms.TimeField(
         required=False,
-        widget=forms.TimeInput(attrs={
-            'class': 'form-control',
-            'type': 'time'
-        })
-    )
-
-    description = forms.CharField(
-        required=False,
-        widget=forms.Textarea(attrs={
-            'class': 'form-control',
-            'placeholder': 'Descripción del grupo'
-        })
+        widget=forms.TimeInput(attrs={'type': 'time'}),
+        label='Hora de inicio'
     )
 
     class Meta:
         model = Group
-        fields = ['name', 'make_reservation', 'court', 'description']
+        fields = ['name']  # Campo básico del grupo
+        labels = {
+            'name': 'Nombre del grupo'
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        make_reservation = cleaned_data.get('make_reservation')
+
+        if make_reservation:
+            required_fields = ['court', 'reservation_name', 'date', 'start_time']
+            for field in required_fields:
+                if not cleaned_data.get(field):
+                    self.add_error(field, f'Este campo es requerido si deseas hacer una reserva')
+
+        return cleaned_data
 
 
 class ContactForm(forms.Form):
