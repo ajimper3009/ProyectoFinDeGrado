@@ -1,6 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import TemplateView, CreateView, FormView, ListView
@@ -63,17 +63,6 @@ class JoinGroupView(LoginRequiredMixin, ListView):
     template_name = 'alquila_pistas/join_group.html'
     context_object_name = 'groups'
 
-    def get_queryset(self):
-        # Obtener todos los grupos sin exclusión
-        groups = Group.objects.all()
-        print("Grupos encontrados:", groups)  # Para depuración
-        return groups
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        print("Contexto:", context['groups'])  # Para depuración
-        return context
-
 
 class SportsPavilionCourtView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/sports_pavilion_court.html'
@@ -90,3 +79,25 @@ class RegisterView(FormView):
         user = form.save()
         login(self.request, user)
         return super().form_valid(form)
+
+
+class JoinGroupSuccessView(LoginRequiredMixin, TemplateView):
+    template_name = 'alquila_pistas/joinGroupSuccess.html'
+
+    def post(self, request, *args, **kwargs):
+        # Aquí añadimos la lógica para unir al usuario al grupo
+        group_id = request.POST.get('group_id')  # Necesitarás añadir este campo en tu formulario
+        try:
+            group = Group.objects.get(id=group_id)
+            current_user, created = User.objects.get_or_create(
+                name=request.user.username,
+                defaults={
+                    'age': 0,
+                    'location': '',
+                    'gender_type': 'male'
+                }
+            )
+            group.users.add(current_user)
+            return redirect('alquila_pistas:JoinGroupSuccessView')
+        except Group.DoesNotExist:
+            return redirect('alquila_pistas:JoinGroup')

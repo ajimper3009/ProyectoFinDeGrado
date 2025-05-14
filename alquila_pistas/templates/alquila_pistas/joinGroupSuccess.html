@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block links %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-body text-center p-5">
+                    <!-- Icono de éxito -->
+                    <div class="mb-4">
+                        <i class="fas fa-check-circle text-success" style="font-size: 5rem;"></i>
+                    </div>
+
+                    <!-- Mensaje de éxito -->
+                    <h2 class="display-4 mb-3">¡Gracias!</h2>
+                    <p class="lead text-muted mb-4">
+                        Te has unido al grupo exitosamente. ¡Prepárate para disfrutar de grandes momentos deportivos!
+                    </p>
+
+                    <!-- Línea decorativa -->
+                    <div class="border-bottom my-4"></div>
+
+                    <!-- Botones de acción -->
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                        <a href="{% url 'alquila_pistas:IndexView' %}" class="btn btn-primary btn-lg px-4">
+                            <i class="fas fa-home me-2"></i>
+                            Ir al Inicio
+                        </a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-lg px-4">
+                            <i class="fas fa-plus-circle me-2"></i>
+                            Crear Nuevo Grupo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estilos adicionales -->
+<style>
+    .card {
+        border-radius: 15px;
+        transition: transform 0.3s ease;
+    }
+    .btn {
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+</style>
+{% endblock %}
