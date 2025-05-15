@@ -10,7 +10,6 @@ urlpatterns = [
     path('create-group/', views.CreateGroupView.as_view(), name='create_group'),
     path('about-us/', views.AboutView.as_view(), name='AboutView'),
     path('contact/', views.ContactView.as_view(), name='ContactView'),
-    path('rent/', views.RentView.as_view(), name='RentView'),
     path('join-group/', views.JoinGroupView.as_view(), name='JoinGroup'),
     path('join-group-success/', views.JoinGroupSuccessView.as_view(), name='JoinGroupSuccessView'),
     path('delete-group/', views.DeleteGroupView.as_view(), name='DeleteGroupView'),
