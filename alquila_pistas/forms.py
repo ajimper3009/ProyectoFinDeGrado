@@ -15,11 +15,6 @@ class GroupForm(forms.ModelForm):
         label='¿Quieres hacer una reserva?',
         widget=forms.CheckboxInput(attrs={'class': 'reservation-toggle'})
     )
-    court = forms.ModelChoiceField(
-        queryset=Court.objects.all(),
-        required=False,
-        label='Pista'
-    )
     reservation_name = forms.CharField(
         max_length=100,
         required=False,
@@ -38,9 +33,10 @@ class GroupForm(forms.ModelForm):
 
     class Meta:
         model = Group
-        fields = ['name']  # Campo básico del grupo
+        fields = ['name', 'court']
         labels = {
-            'name': 'Nombre del grupo'
+            'name': 'Nombre del grupo',
+            'court': 'Pista'
         }
 
     def clean(self):
@@ -71,7 +67,7 @@ class ContactForm(forms.Form):
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     error_messages = {
-        "password_mismatch": ("Las contraseñas no coinciden, por favor intentelo de nuevo"),
+        "password_mismatch": "Las contraseñas no coinciden, por favor intentelo de nuevo",
     }
     class Meta:
         model = User

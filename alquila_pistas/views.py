@@ -32,21 +32,22 @@ class CreateGroupView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('alquila_pistas:IndexView')
 
     def form_valid(self, form):
-        group = form.save()
+        group = form.save(commit=False)
+        # Convertir el usuario lazy a una instancia real de User
+        group.creator = User.objects.get(id=self.request.user.id)
+        group.save()
 
         if form.cleaned_data.get('make_reservation'):
-            date = form.cleaned_data.get('date')
-            start_time = form.cleaned_data.get('start_time')
-            start_datetime = datetime.combine(date, start_time)
-            finish_datetime = start_datetime + timedelta(hours=1.5)
 
-            Reservation.objects.create(
-                user=self.request.user,
-                court=form.cleaned_data.get('court'),
-                date=date,
-                start_time=start_datetime,
-                finish_time=finish_datetime
+            reservation = Reservation(
+                court=form.cleaned_data['court'],
+                date=form.cleaned_data['date'],
+                start_time=form.cleaned_data['start_time'],
+                name=form.cleaned_data['reservation_name'],
+                user=User.objects.get(id=self.request.user.id),
+                group=group
             )
+            reservation.save()
 
         return super().form_valid(form)
 
@@ -95,6 +96,11 @@ class JoinGroupView(LoginRequiredMixin, ListView):
     model = Group
     template_name = 'alquila_pistas/join_group.html'
     context_object_name = 'groups'
+
+    def get_queryset(self):
+        # Optimizamos la carga de datos relacionados
+        return Group.objects.select_related('court', 'reservation').prefetch_related('users').all()
+
 
 
 class SportsPavilionCourtView(LoginRequiredMixin, TemplateView):

@@ -28,10 +28,10 @@ class Court(models.Model):
 class Reservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     court = models.ForeignKey(Court, on_delete=models.CASCADE)
-    date = models.DateField()
-    start_time = models.DateTimeField()
-    finish_time = models.DateTimeField()
-
+    date = models.CharField(max_length=50)
+    start_time = models.CharField(max_length=50)
+    finish_time = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, default=" ")
     def __str__(self):
         return f"{self.user}, {self.court}, {self.date}, {self.start_time}, {self.finish_time}"
 
