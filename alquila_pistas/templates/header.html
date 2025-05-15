@@ -2,8 +2,12 @@
     <div class="container-fluid">
 
         <!-- Logo a la izquierda, en negrita y más visible -->
-
-        <a class="navbar-brand fw-bold text-uppercase" href="{% url 'alquila_pistas:IndexView' %}">AlquilaPistas</a>
+        <a class="navbar-brand fw-bold text-uppercase" href="{% url 'alquila_pistas:IndexView' %}">
+            <img src="../static/img/ALQUILAPISTAS.png" width="50px" height="50px" class="rounded-circle bg-white"
+                 alt="">
+        </a>
+        <a class="navbar-brand fw-bold text-uppercase ms-2"
+           href="{% url 'alquila_pistas:IndexView' %}">AlquilaPistas</a>
 
         <!-- Botón para responsive -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">

@@ -13,6 +13,7 @@ urlpatterns = [
     path('rent/', views.RentView.as_view(), name='RentView'),
     path('join-group/', views.JoinGroupView.as_view(), name='JoinGroup'),
     path('join-group-success/', views.JoinGroupSuccessView.as_view(), name='JoinGroupSuccessView'),
+    path('delete-group/', views.DeleteGroupView.as_view(), name='DeleteGroupView'),
     path('sports-pavilion_court/', views.SportsPavilionCourtView.as_view(), name='SportsPavilionCourtView'),
     path('beach-court/', views.BeachCourtView.as_view(), name='BeachCourtView'),
     path('login/', LoginView.as_view(template_name='registration/login.html'), name='login'),

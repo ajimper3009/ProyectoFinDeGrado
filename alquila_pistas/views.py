@@ -1,20 +1,15 @@
-from datetime import datetime, timedelta
 from email.message import EmailMessage
+
+from django.contrib import messages
 from django.contrib.auth import login
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.mail import send_mail
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
-from django.urls import reverse_lazy, reverse
-from django.utils import timezone
-from django.views.generic import TemplateView, CreateView, FormView, ListView
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, FormView, ListView, DeleteView
 from alquila_pistas.forms import CustomUserCreationForm, GroupForm
 from alquila_pistas.models import *
-
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import TemplateView
 from django.core.mail import EmailMessage
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from .forms import ContactForm
 
@@ -123,6 +118,7 @@ class RegisterView(FormView):
 
 
 class JoinGroupSuccessView(LoginRequiredMixin, TemplateView):
+    model = Group
     template_name = 'alquila_pistas/joinGroupSuccess.html'
 
     def post(self, request, *args, **kwargs):
@@ -143,20 +139,33 @@ class JoinGroupSuccessView(LoginRequiredMixin, TemplateView):
         except Group.DoesNotExist:
             return redirect('alquila_pistas:JoinGroup')
 
-# def simple_mail(request):
-#     send_mail(subject='Subject here', message='Here is the message.', from_email='jimenezjotape@gmail.com', recipient_list=['tunnelb76@gmail.com'])
-#
-#     return HttpResponse('Email sent!')
-#
-# def message_mail(request):
-#     email = EmailMessage(
-#         subject='Subject here',
-#         body='Here is the message.',
-#         from_email='jimenezjotape@gmail.com',
-#         to=['tunnelb76@gmail.com'],
-#         bcc=['<EMAIL>'],
-#         reply_to=['<EMAIL>'],
-#     )
-#     email.send()
-#
-#     return HttpResponse('Email sent!')
+
+class DeleteGroupView(LoginRequiredMixin, TemplateView):
+    template_name = 'alquila_pistas/delete_group.html'
+
+    def get(self, request, *args, **kwargs):
+        group_id = request.GET.get('group_id')
+        try:
+            group = Group.objects.get(id=group_id)
+            return render(request, self.template_name, {'group': group})
+        except Group.DoesNotExist:
+            messages.error(request, "El grupo no existe")
+            return redirect('alquila_pistas:IndexView')
+
+    def post(self, request, *args, **kwargs):
+        group_id = request.POST.get('group_id')
+        try:
+            group = Group.objects.get(id=group_id)
+            if request.user.username in [user.name for user in group.users.all()]:
+                group_name = group.name
+                group.delete()
+                messages.success(request, f'El grupo "{group_name}" ha sido eliminado correctamente')
+            else:
+                messages.error(request, "No tienes permiso para eliminar este grupo")
+        except Group.DoesNotExist:
+            messages.error(request, "El grupo no existe")
+
+        return redirect('alquila_pistas:IndexView')
+
+
+
