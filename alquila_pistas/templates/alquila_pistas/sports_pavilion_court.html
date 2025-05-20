@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block links %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!DOCTYPE html>
     <html lang="es">
     <head>
@@ -38,7 +39,7 @@
         <div class="row g-4">
             <!-- Carta 1 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior1.jpg" class="card-img-top" alt="Noticia 1">
                     <div class="card-body">
                         <h5 class="card-title">Pabellón Sierra del Sol</h5>
@@ -47,14 +48,14 @@
                             iluminacion LED y suelo de tarima flotante</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 2 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior2.png" class="card-img-top" alt="Noticia 2">
                     <div class="card-body">
                         <h5 class="card-title">Palacio del Vóley Guadalquivir</h5>
@@ -62,14 +63,14 @@
                         <p class="card-text">Diseñado específicamente para voleyball, con gradas retráctiles</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 3 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior3.png" class="card-img-top" alt="Noticia 3">
                     <div class="card-body">
                         <h5 class="card-title">Centro Deportivo Costa del Vóley</h5>
@@ -78,14 +79,14 @@
                             retransmisión en streaming</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 4 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior4.jpg" class="card-img-top" alt="Noticia 4">
                     <div class="card-body">
                         <h5 class="card-title">Pabellón Bahía Arena</h5>
@@ -94,14 +95,14 @@
                             1500 personas</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 5 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior5.png" class="card-img-top" alt="Noticia 5">
                     <div class="card-body">
                         <h5 class="card-title">Pabellon EL olivar</h5>
@@ -110,14 +111,14 @@
                             techos altos y marcaje digital</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 6 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior6.png" class="card-img-top" alt="Noticia 6">
                     <div class="card-body">
                         <h5 class="card-title">Pabellon Alhambre XXI</h5>
@@ -125,14 +126,14 @@
                         <p class="card-text">Estructura moderna, con enfoque en el disfrute de los espectadores</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 7 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior7.png" class="card-img-top" alt="Noticia 7">
                     <div class="card-body">
                         <h5 class="card-title">Pabellón Los Toruños</h5>
@@ -141,14 +142,14 @@
                             Cádiz</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 8 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior8.png" class="card-img-top" alt="Noticia 8">
                     <div class="card-body">
                         <h5 class="card-title">Pabellon Sierra Morena Vóley</h5>
@@ -157,14 +158,14 @@
                             graderíos móviles y sistekma de climatizacion eficiente</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Mas Información</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Mas Información</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 9 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior9.jpg" class="card-img-top" alt="Noticia 9">
                     <div class="card-body">
                         <h5 class="card-title">Pabellón La Vega Vóley</h5>
@@ -173,7 +174,7 @@
                             Destaca por su ambiente familiar</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block links %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!DOCTYPE html>
     <html lang="es">
     <head>
@@ -38,7 +39,7 @@
         <div class="row g-4">
             <!-- Carta 1 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/playa1.jpg" class="card-img-top" alt="Noticia 1">
                     <div class="card-body">
                         <h5 class="card-title">Arena Costa del Sol</h5>
@@ -46,14 +47,14 @@
                         <p class="card-text">Complejo de voley playa con arena profesional y gradas para 800 personas</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 2 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/playa2.jpg" class="card-img-top" alt="Noticia 2">
                     <div class="card-body">
                         <h5 class="card-title">Centro Vóley Playa Mar de Plata</h5>
@@ -61,14 +62,14 @@
                         <p class="card-text">Instalación permanente integrada en una playa urbana. Dispone de torres de arbitraje y zonas de calentamiento</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 3 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/playa3.jpg" class="card-img-top" alt="Noticia 3">
                     <div class="card-body">
                         <h5 class="card-title">Arenas del Cabo</h5>
@@ -76,14 +77,14 @@
                         <p class="card-text">Rodeado de paisaje natural preotegido, ideal para jugar con la familia</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 4 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/playa4.jpg" class="card-img-top" alt="Noticia 4">
                     <div class="card-body">
                         <h5 class="card-title">Playa Vóley Arena Atlántico</h5>
@@ -91,14 +92,14 @@
                         <p class="card-text">Uno de los recintos más grandes del litoral onubense. Iluminación nocturna y gradas desmontables</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 5 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/playa5.jpg" class="card-img-top" alt="Noticia 5">
                     <div class="card-body">
                         <h5 class="card-title">Dunas del Vóley</h5>
@@ -106,14 +107,14 @@
                         <p class="card-text">Instalación temporal montada cada verano junto al parque de Doñana</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 6 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/playa6.jpg" class="card-img-top" alt="Noticia 6">
                     <div class="card-body">
                         <h5 class="card-title">Arenas Nazaríes</h5>
@@ -121,14 +122,14 @@
                         <p class="card-text">Arena certificada FIVB, torres de vídeo y zona de fisioterapia. Lugar de referencia para entrenamientos técnicos.</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 7 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/playa7.jpg" class="card-img-top" alt="Noticia 7">
                     <div class="card-body">
                         <h5 class="card-title">Playa Vóley Bahía Blanca</h5>
@@ -136,14 +137,14 @@
                         <p class="card-text">Centro playero con enfoque en deporte inclusivo</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 8 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/playa8.jpg" class="card-img-top" alt="Noticia 8">
                     <div class="card-body">
                         <h5 class="card-title">Costa Tropical Beach Center</h5>
@@ -151,14 +152,14 @@
                         <p class="card-text">Complejo recreativo de pistas del voley playa y entrenamiento funcional</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
 
             <!-- Carta 9 -->
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/playa9.jpg" class="card-img-top" alt="Noticia 9">
                     <div class="card-body">
                         <h5 class="card-title">Arenas del Estrecho</h5>
@@ -166,7 +167,7 @@
                         <p class="card-text">Enclavado frente al mar con vistas a África</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="#" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
                     </div>
                 </div>
             </div>
