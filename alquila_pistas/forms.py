@@ -15,7 +15,7 @@ class GroupForm(forms.ModelForm):
     reservation_name = forms.CharField(
         max_length=100,
         required=False,
-        label='Nombre de la reserva'
+        label='Nombre del usuario que hará la reserva'
     )
     date = forms.DateField(
         required=False,
