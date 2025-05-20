@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'alquila_pistas.apps.AlquilaPistasConfig',
+
 ]
 
 MIDDLEWARE = [

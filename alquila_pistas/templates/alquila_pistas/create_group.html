@@ -1,5 +1,180 @@
-
 {% extends 'base.html' %}
+
+{% block links %}
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Variables de colores */
+        :root {
+          --color-primary: #1a9ad7;      /* Azul brillante (similar al cielo) */
+          --color-secondary: #f57c00;    /* Naranja (similar a una pelota de voleibol) */
+          --color-accent: #8bc34a;       /* Verde (para pistas) */
+          --color-sand: #f5deb3;         /* Arena de playa */
+          --color-sand-dark: #e6c99f;    /* Arena de playa más oscura */
+          --color-white: #ffffff;
+          --color-black: #333333;
+          --color-gray: #f4f4f4;
+          --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos generales */
+        body {
+          font-family: 'Roboto', sans-serif;
+          background-color: var(--color-gray);
+          color: var(--color-black);
+          line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 700;
+        }
+
+        /* Estilo del contenedor principal */
+        .container.py-5 {
+          padding-top: 3rem !important;
+          padding-bottom: 3rem !important;
+        }
+
+        /* Estilo de la tarjeta */
+        .card {
+          border: none;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: var(--shadow);
+          background: linear-gradient(135deg, var(--color-white) 0%, var(--color-gray) 100%);
+        }
+
+        /* Estilo del encabezado de la tarjeta */
+        .card-header {
+          background: linear-gradient(135deg, var(--color-primary) 0%, #0077b6 100%) !important;
+          color: var(--color-white) !important;
+          padding: 1.2rem 1.5rem;
+          border-bottom: none;
+        }
+
+        .card-header h2 {
+          font-size: 1.5rem;
+          margin-bottom: 0;
+        }
+
+        /* Estilo del cuerpo de la tarjeta */
+        .card-body {
+          padding: 2rem;
+        }
+
+        /* Estilos de formulario */
+        form label {
+          font-weight: 500;
+          color: var(--color-black);
+          margin-bottom: 0.5rem;
+          display: block;
+          font-family: 'Montserrat', sans-serif;
+        }
+
+        form input[type="text"],
+        form input[type="date"],
+        form input[type="time"],
+        form select {
+          width: 100%;
+          padding: 0.75rem;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          margin-top: 0.25rem;
+          font-family: 'Roboto', sans-serif;
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        form input[type="text"]:focus,
+        form input[type="date"]:focus,
+        form input[type="time"]:focus,
+        form select:focus {
+          border-color: var(--color-primary);
+          box-shadow: 0 0 0 0.2rem rgba(26, 154, 215, 0.25);
+          outline: none;
+        }
+
+        /* Estilo para el checkbox */
+        .form-check {
+          margin-bottom: 1.5rem;
+          display: flex;
+          align-items: center;
+        }
+
+        .form-check input[type="checkbox"] {
+          margin-right: 0.5rem;
+          width: 18px;
+          height: 18px;
+        }
+
+        .form-check label {
+          margin-bottom: 0;
+          font-weight: 400;
+        }
+
+        /* Estilos para mensajes de error */
+        .alert-danger {
+          background-color: #fff1f0;
+          color: #e53935;
+          border-color: #ffcdd2;
+          border-radius: 5px;
+          font-size: 0.9rem;
+          padding: 0.5rem 0.75rem;
+        }
+
+        /* Estilos de botones */
+        .btn {
+          padding: 0.6rem 1.5rem;
+          border-radius: 5px;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-primary {
+          background-color: var(--color-primary) !important;
+          border-color: var(--color-primary) !important;
+        }
+
+        .btn-primary:hover {
+          background-color: var(--color-secondary) !important;
+          border-color: var(--color-secondary) !important;
+          transform: translateY(-2px);
+        }
+
+        .btn-outline-secondary {
+          color: var(--color-black);
+          border-color: #ccc;
+        }
+
+        .btn-outline-secondary:hover {
+          background-color: var(--color-gray);
+          color: var(--color-black);
+          transform: translateY(-2px);
+        }
+
+        /* Animación para los campos de reserva */
+        #reservation-fields {
+          transition: all 0.4s ease;
+          overflow: hidden;
+          padding: 0.5rem;
+          border-left: 3px solid var(--color-accent);
+          margin-left: 0.5rem;
+          margin-bottom: 1.5rem;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+          .card-body {
+            padding: 1.5rem;
+          }
+        }
+
+        /* Separación entre grupos de campos */
+        .mb-4 {
+          margin-bottom: 1.5rem !important;
+        }
+    </style>
+{% endblock %}
 
 {% block content %}
 <div class="container py-5">
