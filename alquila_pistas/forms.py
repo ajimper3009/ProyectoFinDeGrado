@@ -7,21 +7,31 @@ User = get_user_model()
 
 
 class GroupForm(forms.ModelForm):
+    auto_join = forms.BooleanField(
+        label='Unirme automáticamente al grupo',
+        required=False,
+        initial=True,
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
+    )
+
     make_reservation = forms.BooleanField(
         required=False,
         label='¿Quieres hacer una reserva?',
         widget=forms.CheckboxInput(attrs={'class': 'reservation-toggle'})
     )
+
     reservation_name = forms.CharField(
         max_length=100,
         required=False,
         label='Nombre del usuario que hará la reserva'
     )
+
     date = forms.DateField(
         required=False,
         widget=forms.DateInput(attrs={'type': 'date'}),
         label='Fecha'
     )
+
     start_time = forms.TimeField(
         required=False,
         widget=forms.TimeInput(attrs={'type': 'time'}),
@@ -33,7 +43,7 @@ class GroupForm(forms.ModelForm):
         fields = ['name', 'court']
         labels = {
             'name': 'Nombre del grupo',
-            'court': 'Pista'
+            'court': 'Pista',
         }
 
     def clean(self):

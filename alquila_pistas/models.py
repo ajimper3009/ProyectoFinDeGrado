@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 # Create your models here.
 class User(models.Model):
@@ -38,7 +41,7 @@ class Reservation(models.Model):
 class Group(models.Model):
     name = models.CharField(max_length=50)
     users = models.ManyToManyField(User)
-    court = models.ForeignKey(Court, on_delete=models.CASCADE, null=True, blank=True)  # Modificada esta línea
+    court = models.ForeignKey(Court, on_delete=models.CASCADE, null=True, blank=True)
     reservation = models.OneToOneField(Reservation, on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
 
