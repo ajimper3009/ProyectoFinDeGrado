@@ -12,6 +12,7 @@ class UserProfile(models.Model):
         ('binary', 'Binario'),
     ])
 
+
     def __str__(self):
         return f"{self.name}, {self.age}, {self.location}, {self.gender_type}"
 

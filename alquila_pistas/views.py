@@ -1,17 +1,18 @@
 from email.message import EmailMessage
 from django.contrib import messages
 from django.contrib.auth import login
-from django.http import Http404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, FormView, ListView, DetailView
+from django.views.generic import CreateView, FormView, ListView
 from alquila_pistas.forms import CustomUserCreationForm, GroupForm
 from alquila_pistas.models import *
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.core.mail import EmailMessage
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from .forms import ContactForm
+from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import DetailView
 
 
 
@@ -156,11 +157,6 @@ class DeleteGroupView(LoginRequiredMixin, TemplateView):
             messages.error(request, "El grupo no existe")
 
         return redirect('alquila_pistas:IndexView')
-
-
-from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView
 
 
 class UserProfileView(LoginRequiredMixin, DetailView):
