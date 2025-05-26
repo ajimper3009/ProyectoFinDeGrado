@@ -1,7 +1,11 @@
 from email.message import EmailMessage
 from django.contrib import messages
 from django.contrib.auth import login
+from django.http import JsonResponse
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import CreateView, FormView, ListView
 from alquila_pistas.forms import CustomUserCreationForm, GroupForm
 from alquila_pistas.models import *
@@ -183,6 +187,43 @@ class UserProfileView(LoginRequiredMixin, DetailView):
             context['error_message'] = "No se pudieron cargar las reservas en este momento."
 
         return context
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class UpdateProfileImageView(View):
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return JsonResponse({
+                'success': False,
+                'error': 'Usuario no autenticado'
+            }, status=401)
+
+        if not request.FILES.get('profile_image'):
+            return JsonResponse({
+                'success': False,
+                'error': 'No se proporcionó ninguna imagen'
+            }, status=400)
+
+        try:
+            user_profile = request.user.userprofile
+            # Si existe una imagen anterior, la eliminamos
+            if user_profile.profile_image:
+                user_profile.profile_image.delete(save=False)
+
+            user_profile.profile_image = request.FILES['profile_image']
+            user_profile.save()
+
+            return JsonResponse({
+                'success': True,
+                'message': 'Imagen actualizada correctamente'
+            })
+
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=500)
+
 
 
 

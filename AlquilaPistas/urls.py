@@ -17,6 +17,8 @@ Including another URLconf
 # from alquila_pistas.views import simple_mail, message_mail
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 
@@ -27,3 +29,6 @@ urlpatterns = [
     # path('message', message_mail),
     path('register/', include('django.contrib.auth.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

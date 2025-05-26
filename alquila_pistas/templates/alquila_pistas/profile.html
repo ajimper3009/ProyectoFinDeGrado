@@ -8,10 +8,29 @@
                 <div class="card shadow" style="max-width: 800px; margin: 0 auto;">
                     <div class="card-body text-center">
                         <div class="mb-4">
-                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto"
-                                 style="width: 150px; height: 150px;">
-                                <h1 style="font-size: 3.5rem;">{{ profile_user.username.0|upper }}</h1>
-                            </div>
+                            <form method="POST" enctype="multipart/form-data" id="profile-image-form">
+                                {% csrf_token %}
+                                <input type="file" name="profile_image" id="profile-image-input" style="display: none;"
+                                       accept="image/*">
+                                <label for="profile-image-input" style="cursor: pointer;">
+                                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto"
+                                         style="width: 150px; height: 150px;">
+                                        {% if profile_user.userprofile.profile_image %}
+                                            <img src="{{ profile_user.userprofile.profile_image.url }}"
+                                                 class="rounded-circle w-100 h-100"
+                                                 style="object-fit: cover;" alt=" ">
+
+                                        {% else %}
+                                            <h1 style="font-size: 3.5rem;">{{ profile_user.username.0|upper }}</h1>
+                                        {% endif %}
+                                        <div class="overlay-text"
+                                             style="position: absolute; opacity: 0; transition: opacity 0.3s;">
+                                            <i class="fas fa-camera"></i>
+                                            <span>Cambiar foto</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </form>
                         </div>
                         <h3 class="card-title mb-3" style="font-size: 2rem;">{{ profile_user.username }}</h3>
                         <p class="text-muted" style="font-size: 1.2rem;">{{ profile_user.email }}</p>
@@ -55,7 +74,7 @@
             </div>
         </div>
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-4">
         <div class="col-lg-8">
             <!-- Tarjeta de reservas -->
             <div class="card shadow" style="max-width: 800px; margin: 0 auto;">
@@ -90,7 +109,6 @@
                                 <i class="fas fa-plus me-2"></i>Hacer una reserva
                             </a>
                         </div>
-
                     {% endif %}
                 </div>
             </div>
@@ -128,12 +146,31 @@
         }
 
         .rounded-circle {
+            position: relative;
+            overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
 
         .rounded-circle:hover {
             transform: scale(1.05);
+        }
+
+        .rounded-circle:hover .overlay-text {
+            opacity: 1 !important;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .overlay-text i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
         }
 
         .card-body {
@@ -144,4 +181,31 @@
             margin-bottom: 1rem;
         }
     </style>
+
+    <script>
+        document.getElementById('profile-image-input').addEventListener('change', function () {
+            const form = document.getElementById('profile-image-form');
+            const formData = new FormData(form);
+
+            fetch('{% url "alquila_pistas:update_profile_image" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert(data.error || 'Error al actualizar la imagen de perfil');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al actualizar la imagen de perfil');
+                });
+        });
+    </script>
 {% endblock %}

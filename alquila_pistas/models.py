@@ -11,7 +11,7 @@ class UserProfile(models.Model):
         ('female', 'Feminino'),
         ('binary', 'Binario'),
     ])
-
+    profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
 
     def __str__(self):
         return f"{self.name}, {self.age}, {self.location}, {self.gender_type}"
