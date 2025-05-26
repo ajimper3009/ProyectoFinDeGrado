@@ -1,12 +1,12 @@
 from email.message import EmailMessage
 from django.contrib import messages
 from django.contrib.auth import login
+from django.http import Http404
 from django.urls import reverse_lazy
-from django.utils import timezone
-from django.views.generic import CreateView, FormView, ListView, DeleteView, UpdateView, DetailView
+from django.views.generic import CreateView, FormView, ListView, DetailView
 from alquila_pistas.forms import CustomUserCreationForm, GroupForm
 from alquila_pistas.models import *
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.core.mail import EmailMessage
 from django.shortcuts import redirect, render, get_object_or_404
@@ -38,7 +38,7 @@ class CreateGroupView(LoginRequiredMixin, CreateView):
                 court=form.cleaned_data['court'],
                 date=form.cleaned_data['date'],
                 start_time=form.cleaned_data['start_time'],
-                name=form.cleaned_data['reservation_name'],
+                name_reservation=form.cleaned_data['reservation_name'],
                 user=User.objects.get(id=self.request.user.id),
                 group=group
             )
@@ -83,10 +83,6 @@ class ContactView(LoginRequiredMixin, TemplateView):
         return self.render_to_response(self.get_context_data(form=form))
 
 
-class RentView(LoginRequiredMixin, TemplateView):
-    template_name = 'alquila_pistas/rent.html'
-
-
 class JoinGroupView(LoginRequiredMixin, ListView):
     model = Group
     template_name = 'alquila_pistas/join_group.html'
@@ -122,21 +118,15 @@ class JoinGroupSuccessView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/joinGroupSuccess.html'
 
     def post(self, request, *args, **kwargs):
-        # Aquí añadimos la lógica para unir al usuario al grupo
-        group_id = request.POST.get('group_id')  # Necesitarás añadir este campo en tu formulario
+        group_id = request.POST.get('group_id')
         try:
             group = Group.objects.get(id=group_id)
-            current_user, created = User.objects.get_or_create(
-                name=request.user.username,
-                defaults={
-                    'age': 0,
-                    'location': '',
-                    'gender_type': 'male'
-                }
-            )
-            group.users.add(current_user)
+            # Usamos directamente el usuario actual
+            group.users.add(request.user)
+            messages.success(request, "Te has unido al grupo exitosamente")
             return redirect('alquila_pistas:JoinGroupSuccessView')
         except Group.DoesNotExist:
+            messages.error(request, "El grupo no existe")
             return redirect('alquila_pistas:JoinGroup')
 
 
@@ -156,7 +146,7 @@ class DeleteGroupView(LoginRequiredMixin, TemplateView):
         group_id = request.POST.get('group_id')
         try:
             group = Group.objects.get(id=group_id)
-            if request.user.username in [user.name for user in group.users.all()]:
+            if request.user.username in [user.username for user in group.users.all()]:
                 group_name = group.name
                 group.delete()
                 messages.success(request, f'El grupo "{group_name}" ha sido eliminado correctamente')
@@ -167,20 +157,37 @@ class DeleteGroupView(LoginRequiredMixin, TemplateView):
 
         return redirect('alquila_pistas:IndexView')
 
+
+from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import DetailView
+
+
 class UserProfileView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'alquila_pistas/profile.html'
     context_object_name = 'profile_user'
 
-    def get_object(self, queryset=None):
-        if queryset is None:
-            queryset = self.get_queryset()
-        return get_object_or_404(queryset, pk=self.request.user.pk)
+    def get_object(self):
+        return self.request.user
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['reservations'] = Reservation.objects.filter(user=self.request.user)
+
+        # Manejo seguro de las reservas
+        try:
+            # Intenta obtener las reservas
+            reservations = Reservation.objects.filter(user=self.request.user)
+            context['reservations'] = reservations
+            context['error_message'] = None
+        except Exception as e:
+            # Si hay un error, establece una lista vacía y guarda el mensaje de error
+            print(f"Error al obtener reservas: {str(e)}")
+            context['reservations'] = []
+            context['error_message'] = "No se pudieron cargar las reservas en este momento."
+
         return context
+
 
 
 

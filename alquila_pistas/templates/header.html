@@ -58,10 +58,10 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <div class="text-end">
+                                <div class="text-start">
                                     <form method="post" action="{% url 'alquila_pistas:logout' %}">
                                         {% csrf_token %}
-                                        <input type="submit" value="Cerrar sesión" class="btn btn-primary">
+                                        <input type="submit" value="Cerrar sesión" class="btn">
                                     </form>
                                 </div>
                             </li>
