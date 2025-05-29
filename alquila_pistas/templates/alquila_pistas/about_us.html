@@ -1,52 +1,215 @@
 {% extends "base.html" %}
 {% load static %}
 {% block links %}
-    <!-- Contenedor centrado y espaciamiento -->
-    <div class="container my-5 d-flex justify-content-center">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Sobre Nosotros - AlquilaPistas</title>
+        <style>
+            /* Estilos generales */
+            .about-section {
+                padding: 80px 0;
+                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            }
 
-        <!-- Carta ancha y estilizada -->
-        <div class="card w-100 shadow-lg border-0 rounded-4" style="max-width: 1140px;">
+            .intro-section {
+                background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+                color: white;
+                padding: 100px 0 80px 0;
+                position: relative;
+                overflow: hidden;
+            }
 
-            <!-- Imagen superior -->
-            <img src="../../static/img/aboutUs.jpg" class="card-img-top rounded-top-4" alt="Imagen de pistas de vóley">
+            .intro-section::after {
+                content: '🏐';
+                position: absolute;
+                font-size: 200px;
+                right: -50px;
+                top: -50px;
+                opacity: 0.1;
+                transform: rotate(30deg);
+            }
 
-            <!-- Contenido con estilo tipográfico -->
-            <div class="card-body p-5 fs-5 lh-lg text-justify" style="font-family: 'Segoe UI', sans-serif;">
+            .intro-text {
+                font-size: 1.2rem;
+                line-height: 1.8;
+                margin-bottom: 30px;
+            }
 
-                <h2 class="mb-4 text-center text-primary fw-bold">Bienvenido a AlquilaPistas</h2>
+            /* Estilos para los objetivos */
+            .objectives-container {
+                background: white;
+                border-radius: 20px;
+                padding: 40px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                margin-top: -60px;
+                position: relative;
+                z-index: 2;
+            }
 
-                <p><strong>Tu espacio ideal para jugar vóley.</strong></p>
+            .objective-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 25px;
+                padding: 20px;
+                border-radius: 15px;
+                background: #f8f9fa;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
 
-                <p>¿Buscas una pista de vóley para entrenar, jugar con amigos o celebrar un torneo? En <strong>AlquilaPistas</strong>
-                    te lo ponemos fácil. Reserva online tu pista favorita en solo unos clics y disfruta del deporte que
-                    más te gusta en instalaciones cómodas, bien cuidadas y con todos los servicios que necesitas.</p>
+            .objective-item:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
 
-                <ul class="list-unstyled">
-                    <li class="mb-3">
-                        <span class="fw-semibold text-success">🏐 Pistas indoor y outdoor:</span>
-                        Elige entre canchas cubiertas o al aire libre, con suelo de arena, césped sintético o superficie
-                        dura, según tu estilo de juego.
-                    </li>
-                    <li class="mb-3">
-                        <span class="fw-semibold text-success">📍 Ubicaciones accesibles:</span>
-                        Encuentra pistas cerca de ti gracias a nuestro buscador por ubicación. ¡Juega donde y cuando
-                        quieras!
-                    </li>
-                    <li class="mb-3">
-                        <span class="fw-semibold text-success">📅 Reserva fácil:</span>
-                        Consulta disponibilidad en tiempo real y reserva tu pista en segundos desde cualquier
-                        dispositivo. Sin llamadas, sin complicaciones.
-                    </li>
-                    <li>
-                        <span class="fw-semibold text-success">👥 Ideal para grupos y eventos:</span>
-                        Organiza partidos, entrenamientos o eventos privados. También ofrecemos tarifas especiales para
-                        clubes y grupos.
-                    </li>
-                </ul>
+            .objective-icon {
+                font-size: 2rem;
+                margin-right: 20px;
+                color: #1565c0;
+            }
 
+            .objective-text {
+                font-size: 1.1rem;
+                color: #424242;
+                margin: 0;
+            }
+
+            /* Estadísticas */
+            .stats-section {
+                padding: 60px 0;
+                background: white;
+            }
+
+            .stat-card {
+                text-align: center;
+                padding: 30px;
+                border-radius: 15px;
+                background: #f8f9fa;
+                margin-bottom: 30px;
+                transition: transform 0.3s ease;
+            }
+
+            .stat-card:hover {
+                transform: translateY(-5px);
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: #1565c0;
+                margin-bottom: 10px;
+            }
+
+            /* Animaciones */
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .animate-fade-in {
+                animation: fadeInUp 0.8s ease forwards;
+            }
+
+            .delay-1 { animation-delay: 0.2s; }
+            .delay-2 { animation-delay: 0.4s; }
+            .delay-3 { animation-delay: 0.6s; }
+        </style>
+    </head>
+    <body>
+
+    <!-- Sección de Introducción -->
+    <section class="intro-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center animate-fade-in">
+                    <h1 class="mb-4">Bienvenidos a AlquilaPistas</h1>
+                    <p class="intro-text">
+                        AlquilaPistas es una plataforma web innovadora destinada a la gestión del alquiler de pistas de voleibol 🏐.
+                        Nuestro objetivo principal es facilitar la reserva de instalaciones deportivas, permitiendo a los usuarios
+                        gestionar sus alquileres de forma sencilla y eficiente. Además, nos enfocamos en crear una comunidad
+                        deportiva activa mediante la implementación de funcionalidades que permiten unirse a grupos ya creados
+                        para compartir pistas y organizar eventos deportivos 📅.
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
+    <!-- Sección de Objetivos -->
+    <section class="about-section">
+        <div class="container">
+            <div class="objectives-container animate-fade-in">
+                <h2 class="text-center mb-5">Nuestros Objetivos</h2>
 
+                <div class="objective-item animate-fade-in delay-1">
+                    <div class="objective-icon">🎯</div>
+                    <p class="objective-text">Permitir la reserva de pistas de voleibol de manera online, haciendo el proceso más accesible y eficiente.</p>
+                </div>
+
+                <div class="objective-item animate-fade-in delay-1">
+                    <div class="objective-icon">⚙️</div>
+                    <p class="objective-text">Implementar un sistema de gestión intuitivo para administradores y usuarios, facilitando el control y la organización.</p>
+                </div>
+
+                <div class="objective-item animate-fade-in delay-2">
+                    <div class="objective-icon">👥</div>
+                    <p class="objective-text">Facilitar la creación y gestión de grupos de jugadores, fomentando la comunidad deportiva.</p>
+                </div>
+
+                <div class="objective-item animate-fade-in delay-2">
+                    <div class="objective-icon">🕒</div>
+                    <p class="objective-text">Optimizar el uso de las pistas mediante un sistema de horarios y disponibilidad en tiempo real.</p>
+                </div>
+
+                <div class="objective-item animate-fade-in delay-3">
+                    <div class="objective-icon">💫</div>
+                    <p class="objective-text">Ofrecer una experiencia de usuario intuitiva y eficiente que haga del deporte algo más accesible.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Estadísticas -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stat-card animate-fade-in">
+                        <div class="stat-number">500+</div>
+                        <p>Usuarios Activos</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card animate-fade-in delay-1">
+                        <div class="stat-number">18+</div>
+                        <p>Pistas Disponibles</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card animate-fade-in delay-2">
+                        <div class="stat-number">1000+</div>
+                        <p>Reservas Realizadas</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card animate-fade-in delay-3">
+                        <div class="stat-number">100+</div>
+                        <p>Grupos Activos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </body>
+    </html>
 {% endblock %}

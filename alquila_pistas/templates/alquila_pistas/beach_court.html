@@ -29,12 +29,68 @@
                 height: 200px;
                 object-fit: cover;
             }
+
+            /* Estilos para el filtro */
+            .filter-section {
+                margin-bottom: 2rem;
+                padding: 1.5rem;
+                background-color: #f8f9fa;
+                border-radius: 15px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .filter-section select {
+                min-width: 200px;
+            }
+
+            /* Animaciones y transiciones */
+            .col-md-4 {
+                transition: opacity 0.3s ease-in-out;
+            }
+
+            .form-select {
+                padding: 0.75rem 1rem;
+                border-radius: 0.5rem;
+                border: 1px solid #dee2e6;
+                cursor: pointer;
+            }
+
+            .form-select:focus {
+                border-color: #0d6efd;
+                box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+            }
+
+            .card {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+            }
         </style>
     </head>
     <body>
 
     <div class="container my-5">
-        <h2 class="text-center text-primary fw-bold mb-5">Pistas de Playa</h2>
+
+        <!-- Sección de filtros -->
+        <div class="filter-section mb-4">
+            <div class="row align-items-center">
+                <h2 class="text-center text-primary fw-bold mb-5">Pistas de Playa</h2>
+                <div class="col-md-6">
+                    <label for="locationFilter" class="form-label fw-medium">Filtrar por ubicación:</label>
+                    <select id="locationFilter" class="form-select">
+                        <option value="todos">Todas las ubicaciones</option>
+                        <option value="Málaga">Málaga</option>
+                        <option value="Cádiz">Cádiz</option>
+                        <option value="Almería">Almería</option>
+                        <option value="Huelva">Huelva</option>
+                        <option value="Granada">Granada</option>
+                    </select>
+                </div>
+            </div>
+        </div>
 
         <div class="row g-4">
             <!-- Carta 1 -->
@@ -174,7 +230,33 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const locationFilter = document.getElementById('locationFilter');
+            const cards = document.querySelectorAll('.card');
+
+            locationFilter.addEventListener('change', function() {
+                const selectedLocation = this.value.toLowerCase();
+
+                cards.forEach(card => {
+                    const locationText = card.querySelector('.card-text strong').nextSibling.textContent.toLowerCase();
+                    const cardContainer = card.closest('.col-md-4');
+
+                    if (selectedLocation === 'todos' || locationText.includes(selectedLocation.toLowerCase())) {
+                        cardContainer.style.display = 'block';
+                        // Añadimos una animación suave
+                        cardContainer.style.opacity = '0';
+                        setTimeout(() => {
+                            cardContainer.style.opacity = '1';
+                        }, 50);
+                    } else {
+                        cardContainer.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+
     </body>
     </html>
-
 {% endblock %}
