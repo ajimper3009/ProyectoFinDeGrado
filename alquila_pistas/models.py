@@ -18,7 +18,9 @@ class UserProfile(models.Model):
 
 class Court(models.Model):
     name = models.CharField(max_length=50, default=" ")
-    location = models.CharField(max_length=50, default=" ")
+    location = models.CharField(max_length=100, default=" ")
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
     court_type = models.CharField(max_length=50, choices=[
         ('Sports pavilion', 'Pabellon_deportivo'),
         ('beach', 'Playa'),

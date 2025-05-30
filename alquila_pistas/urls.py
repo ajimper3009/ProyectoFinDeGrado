@@ -1,7 +1,7 @@
 from django.contrib.auth.views import LoginView, LogoutView
-from django.urls import path, include
+from django.urls import path
 from . import views
-from .views import UserProfileView
+from .views import UserProfileView, CourtDetailView
 
 app_name = 'alquila_pistas'
 
@@ -17,6 +17,7 @@ urlpatterns = [
     path('delete-group/', views.DeleteGroupView.as_view(), name='DeleteGroupView'),
     path('sports-pavilion_court/', views.SportsPavilionCourtView.as_view(), name='SportsPavilionCourtView'),
     path('beach-court/', views.BeachCourtView.as_view(), name='BeachCourtView'),
+    path('courts/<int:pk>/', CourtDetailView.as_view(), name='court_detail'),
     path('login/', LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout', LogoutView.as_view(next_page='/'), name='logout'),
     path('register/', views.RegisterView.as_view(), name='register'),

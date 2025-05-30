@@ -225,7 +225,10 @@ class UpdateProfileImageView(View):
             }, status=500)
 
 
-
+class CourtDetailView(DetailView):
+    model = Court
+    template_name = 'alquila_pistas/court_detail.html'
+    context_object_name = 'court'
 
 
 

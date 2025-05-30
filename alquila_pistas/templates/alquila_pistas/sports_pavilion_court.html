@@ -36,7 +36,7 @@
                 padding: 1rem;
                 background-color: #f8f9fa;
                 border-radius: 10px;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
 
             .filter-section select {
@@ -66,7 +66,7 @@
 
             .card:hover {
                 transform: translateY(-5px);
-                box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
             }
         </style>
     </head>
@@ -100,13 +100,16 @@
                 <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior1.jpg" class="card-img-top" alt="Noticia 1">
                     <div class="card-body">
-                        <h5 class="card-title">Pabellón Sierra del Sol</h5>
-                        <p class="card-text"><strong>Localización: </strong>Granada (Barrio del Zaidín)</p>
-                        <p class="card-text">Moderna instalación con capacidad para 2000 espectadores, destaca por su
-                            iluminacion LED y suelo de tarima flotante</p>
+                        <h5 class="card-title">Pabellón Moisés Ruiz</h5>
+                        <p class="card-text"><strong>Localización: </strong>Almería</p>
+                        <p class="card-text">Instalación moderna y emblemática, sede del Unicaja Almería, uno de los equipos más laureados de la Superliga Masculina de Voleibol.</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 1 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                    </div>
+                    <div class="card-footer text-end">
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
+                            Grupo</a>
                     </div>
                 </div>
             </div>
@@ -116,12 +119,16 @@
                 <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior2.png" class="card-img-top" alt="Noticia 2">
                     <div class="card-body">
-                        <h5 class="card-title">Palacio del Vóley Guadalquivir</h5>
-                        <p class="card-text"><strong>Localización: </strong>Sevilla (Isla de la Cartuja)</p>
+                        <h5 class="card-title">Pabellón de Deportes Fuentenueva (UGR)</h5>
+                        <p class="card-text"><strong>Localización: </strong>Granada</p>
                         <p class="card-text">Diseñado específicamente para voleyball, con gradas retráctiles</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 2 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                    </div>
+                    <div class="card-footer text-end">
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
+                            Grupo</a>
                     </div>
                 </div>
             </div>
@@ -131,13 +138,17 @@
                 <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior3.png" class="card-img-top" alt="Noticia 3">
                     <div class="card-body">
-                        <h5 class="card-title">Centro Deportivo Costa del Vóley</h5>
-                        <p class="card-text"><strong>Localización: </strong>Málaga (Rincón de la Victoria)</p>
+                        <h5 class="card-title">Pabellón Ciudad Jardín</h5>
+                        <p class="card-text"><strong>Localización: </strong>Málaga</p>
                         <p class="card-text">Recinto de alto rendimiento con tecnología de seguimiento de movimiento y
                             retransmisión en streaming</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 3 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                    </div>
+                    <div class="card-footer text-end">
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
+                            Grupo</a>
                     </div>
                 </div>
             </div>
@@ -147,13 +158,16 @@
                 <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior4.jpg" class="card-img-top" alt="Noticia 4">
                     <div class="card-body">
-                        <h5 class="card-title">Pabellón Bahía Arena</h5>
-                        <p class="card-text"><strong>Localización: </strong>Cádiz (Zona Extramuros)</p>
-                        <p class="card-text">Instalación cubierta junto al mar con ventilación natural y gradas para
-                            1500 personas</p>
+                        <h5 class="card-title">Pabellón Municipal El Limón</h5>
+                        <p class="card-text"><strong>Localización: </strong>Alhaurín de la Torre (Málaga)</p>
+                        <p class="card-text">Punto clave para el deporte base, donde se realizan actividades municipales, entrenamientos y torneos de voleibol escolar.</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 6 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                    </div>
+                    <div class="card-footer text-end">
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
+                            Grupo</a>
                     </div>
                 </div>
             </div>
@@ -163,13 +177,17 @@
                 <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior5.png" class="card-img-top" alt="Noticia 5">
                     <div class="card-body">
-                        <h5 class="card-title">Pabellón el Olivar</h5>
-                        <p class="card-text"><strong>Localización: </strong>Jaén (Bulevar Sur)</p>
+                        <h5 class="card-title">Ciudad Deportiva Bahía Sur</h5>
+                        <p class="card-text"><strong>Localización: </strong>San Fernando (Cádiz)</p>
                         <p class="card-text">Reconocido por su escuela de formación de voleyball. Tiene pistas con
                             techos altos y marcaje digital</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 7 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                    </div>
+                    <div class="card-footer text-end">
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
+                            Grupo</a>
                     </div>
                 </div>
             </div>
@@ -179,12 +197,16 @@
                 <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior6.png" class="card-img-top" alt="Noticia 6">
                     <div class="card-body">
-                        <h5 class="card-title">Pabellón Alhambre XXI</h5>
-                        <p class="card-text"><strong>Localización: </strong>Almería (Zona Nueva Andalucía)</p>
+                        <h5 class="card-title">Pabellón Andrés Estrada</h5>
+                        <p class="card-text"><strong>Localización: </strong>Huelva</p>
                         <p class="card-text">Estructura moderna, con enfoque en el disfrute de los espectadores</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 8 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                    </div>
+                    <div class="card-footer text-end">
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
+                            Grupo</a>
                     </div>
                 </div>
             </div>
@@ -194,13 +216,17 @@
                 <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior7.png" class="card-img-top" alt="Noticia 7">
                     <div class="card-body">
-                        <h5 class="card-title">Pabellón Los Toruños</h5>
-                        <p class="card-text"><strong>Localización: </strong>El Puerto de Santa María (Cádiz)</p>
+                        <h5 class="card-title">Polideportivo "Kiko Narváez"</h5>
+                        <p class="card-text"><strong>Localización: </strong>Jerez de la Frontera (Cádiz)</p>
                         <p class="card-text">Con vistas al parque natural, es una referencia al voleyball en la bahia de
                             Cádiz</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 9 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                    </div>
+                    <div class="card-footer text-end">
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
+                            Grupo</a>
                     </div>
                 </div>
             </div>
@@ -210,13 +236,17 @@
                 <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior8.png" class="card-img-top" alt="Noticia 8">
                     <div class="card-body">
-                        <h5 class="card-title">Pabellon Sierra Morena Vóley</h5>
-                        <p class="card-text"><strong>Localización: </strong>Córdoba (Districto Norte)</p>
+                        <h5 class="card-title">Palacio de Deportes Vista Alegre</h5>
+                        <p class="card-text"><strong>Localización: </strong>Córdoba</p>
                         <p class="card-text">Instalación polivalente especializada en deportes de pista. Incluye
-                            graderíos móviles y sistekma de climatizacion eficiente</p>
+                            graderíos móviles y sistema de climatizacion eficiente</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Mas Información</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 10 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                    </div>
+                    <div class="card-footer text-end">
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Mas
+                            Información</a>
                     </div>
                 </div>
             </div>
@@ -226,13 +256,17 @@
                 <div class="card h-100 shadow-sm border-0 carousel-img">
                     <img src="../../static/img/pista_interior9.jpg" class="card-img-top" alt="Noticia 9">
                     <div class="card-body">
-                        <h5 class="card-title">Pabellón La Vega Vóley</h5>
-                        <p class="card-text"><strong>Localización: </strong>Huelva (Zona Molino de la Vega)</p>
+                        <h5 class="card-title">Pabellón Municipal Infanta Cristina</h5>
+                        <p class="card-text"><strong>Localización: </strong>Roquetas de Mar (Almería)</p>
                         <p class="card-text">Pabellon comunitario con una pista oficial y salas de entrenamiento.
                             Destaca por su ambiente familiar</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear Grupo</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 11 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                    </div>
+                    <div class="card-footer text-end">
+                        <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
+                            Grupo</a>
                     </div>
                 </div>
             </div>
@@ -240,11 +274,11 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const locationFilter = document.getElementById('locationFilter');
             const cards = document.querySelectorAll('.card');
 
-            locationFilter.addEventListener('change', function() {
+            locationFilter.addEventListener('change', function () {
                 const selectedLocation = this.value.toLowerCase();
 
                 cards.forEach(card => {
