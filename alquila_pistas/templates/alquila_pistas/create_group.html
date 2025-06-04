@@ -1,38 +1,45 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %}  {# Hereda de la plantilla base #}
+
 {% block content %}
+    {# Contenedor principal con padding vertical #}
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-lg-8">
+                {# Tarjeta principal del formulario #}
                 <div class="bg-white rounded-4 shadow-sm p-4 p-md-5 card-hover">
+                    {# Encabezado del formulario #}
                     <div class="text-center mb-4">
                         <h2 class="display-5 fw-bold text-primary">Crear Nuevo Grupo</h2>
                         <p class="text-muted">Complete los detalles para crear su grupo deportivo</p>
                     </div>
 
+                    {# Formulario principal #}
                     <form method="post" class="needs-validation" novalidate>
                         {% csrf_token %}
 
-                        {# Campo de nombre del grupo #}
+                        {# Campo: Nombre del grupo #}
                         <div class="mb-4">
-                            <label for="{{ form.name.id_for_label }}" class="form-label text-dark fw-medium">Nombre del Grupo</label>
+                            <label for="{{ form.name.id_for_label }}" class="form-label text-dark fw-medium">
+                                Nombre del Grupo
+                            </label>
                             {{ form.name }}
                             {% if form.name.errors %}
-                                <div class="text-danger mt-1">
-                                    {{ form.name.errors }}
-                                </div>
+                                <div class="text-danger mt-1">{{ form.name.errors }}</div>
                             {% endif %}
                         </div>
 
+                        {# Campo: Selección de pista deportiva #}
                         <div class="mb-4">
-                            <label for="{{ form.court.id_for_label }}" class="form-label text-dark fw-medium">Pista Deportiva</label>
+                            <label for="{{ form.court.id_for_label }}" class="form-label text-dark fw-medium">
+                                Pista Deportiva
+                            </label>
                             {{ form.court }}
                             {% if form.court.errors %}
-                                <div class="text-danger mt-1">
-                                    {{ form.court.errors }}
-                                </div>
+                                <div class="text-danger mt-1">{{ form.court.errors }}</div>
                             {% endif %}
                         </div>
 
+                        {# Switch para activar/desactivar la reserva #}
                         <div class="form-check form-switch mb-4">
                             {{ form.make_reservation }}
                             <label class="form-check-label ms-2 text-dark" for="{{ form.make_reservation.id_for_label }}">
@@ -40,44 +47,48 @@
                             </label>
                         </div>
 
+                        {# Campos de reserva (inicialmente ocultos) #}
                         <div id="reservation-fields" style="display: none;">
                             <hr class="my-4">
                             <h4 class="mb-3 text-primary">Detalles de la Reserva</h4>
 
+                            {# Campo: Nombre de la reserva #}
                             <div class="mb-4">
-                                <label for="{{ form.reservation_name.id_for_label }}" class="form-label text-dark fw-medium">Nombre de la Reserva</label>
+                                <label for="{{ form.reservation_name.id_for_label }}" class="form-label text-dark fw-medium">
+                                    Nombre de la Reserva
+                                </label>
                                 {{ form.reservation_name }}
                                 {% if form.reservation_name.errors %}
-                                    <div class="text-danger mt-1">
-                                        {{ form.reservation_name.errors }}
-                                    </div>
+                                    <div class="text-danger mt-1">{{ form.reservation_name.errors }}</div>
                                 {% endif %}
                             </div>
 
+                            {# Campo: Fecha de la reserva #}
                             <div class="mb-4">
-                                <label for="{{ form.date.id_for_label }}" class="form-label text-dark fw-medium">Fecha</label>
+                                <label for="{{ form.date.id_for_label }}" class="form-label text-dark fw-medium">
+                                    Fecha
+                                </label>
                                 {{ form.date }}
                                 {% if form.date.errors %}
-                                    <div class="text-danger mt-1">
-                                        {{ form.date.errors }}
-                                    </div>
+                                    <div class="text-danger mt-1">{{ form.date.errors }}</div>
                                 {% endif %}
                             </div>
 
+                            {# Campo: Hora de inicio #}
                             <div class="mb-4">
-                                <label for="{{ form.start_time.id_for_label }}" class="form-label text-dark fw-medium">Hora de Inicio</label>
+                                <label for="{{ form.start_time.id_for_label }}" class="form-label text-dark fw-medium">
+                                    Hora de Inicio
+                                </label>
                                 {{ form.start_time }}
                                 {% if form.start_time.errors %}
-                                    <div class="text-danger mt-1">
-                                        {{ form.start_time.errors }}
-                                    </div>
+                                    <div class="text-danger mt-1">{{ form.start_time.errors }}</div>
                                 {% endif %}
                             </div>
                         </div>
 
+                        {# Botones de acción #}
                         <div class="d-grid gap-2 d-flex justify-content-between mt-4">
-                            <a href="{% url 'alquila_pistas:IndexView' %}"
-                               class="btn btn-outline-primary btn-lg px-4">
+                            <a href="{% url 'alquila_pistas:IndexView' %}" class="btn btn-outline-primary btn-lg px-4">
                                 Volver
                             </a>
                             <button type="submit" class="btn btn-primary btn-lg px-4">
@@ -90,6 +101,7 @@
         </div>
     </div>
 
+    {# Script para manejar la visibilidad de los campos de reserva #}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const reservationToggle = document.querySelector('#{{ form.make_reservation.id_for_label }}');
@@ -109,7 +121,9 @@
         });
     </script>
 
+    {# Estilos CSS personalizados #}
     <style>
+        /* Animación de fade in */
         .fade-in {
             animation: fadeIn 0.3s ease-in;
         }
@@ -119,7 +133,7 @@
             to { opacity: 1; }
         }
 
-        /* Estilos para el hover de la carta */
+        /* Efecto hover para la tarjeta */
         .card-hover {
             transition: all 0.3s ease;
             border: 1px solid rgba(0,0,0,0.1);
@@ -131,6 +145,7 @@
             border-color: rgba(13, 110, 253, 0.3);
         }
 
+        /* Estilos para los campos del formulario */
         .form-control, .form-select {
             padding: 0.75rem 1rem;
             font-size: 1rem;
@@ -138,25 +153,30 @@
             border: 1px solid #dee2e6;
         }
 
+        /* Estilos para el foco de los campos */
         .form-control:focus, .form-select:focus {
             border-color: #0d6efd;
             box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
         }
 
+        /* Estilos para el switch de reserva */
         .form-switch .form-check-input {
             width: 3em;
             height: 1.5em;
             margin-right: 0.5em;
         }
 
+        /* Estilos para mensajes de error */
         .text-danger {
             font-size: 0.875rem;
         }
 
+        /* Estilos para campos de fecha y hora */
         input[type="date"], input[type="time"] {
             min-height: calc(1.5em + 1rem + 2px);
         }
 
+        /* Color para las etiquetas */
         .form-label {
             color: #212529 !important;
         }

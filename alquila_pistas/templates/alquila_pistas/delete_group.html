@@ -1,23 +1,39 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %}  {# Hereda de la plantilla base #}
+
 {% block content %}
+{# Contenedor principal con margen superior #}
 <div class="container mt-5">
+    {# Fila centrada horizontalmente #}
     <div class="row justify-content-center">
+        {# Columna responsiva que ocupa 6 columnas en pantallas medianas #}
         <div class="col-md-6">
+            {# Tarjeta de confirmación #}
             <div class="card">
+                {# Encabezado de la tarjeta con fondo rojo y texto blanco #}
                 <div class="card-header bg-danger text-white">
                     <h5 class="mb-0">Confirmar Eliminación</h5>
                 </div>
+
+                {# Cuerpo de la tarjeta #}
                 <div class="card-body">
+                    {# Mensaje de confirmación con el nombre del grupo #}
                     <p class="mb-4">¿Estás seguro de que deseas eliminar el grupo "{{ group.name }}"?</p>
+                    {# Advertencia sobre la irreversibilidad de la acción #}
                     <p class="text-muted">Esta acción no se puede deshacer.</p>
 
+                    {# Formulario para procesar la eliminación #}
                     <form method="post">
-                        {% csrf_token %}
+                        {% csrf_token %}  {# Token de seguridad de Django #}
+                        {# Campo oculto con el ID del grupo #}
                         <input type="hidden" name="group_id" value="{{ group.id }}">
+
+                        {# Contenedor de botones alineados a la derecha #}
                         <div class="d-flex justify-content-end gap-2">
+                            {# Botón de cancelar que redirige al inicio #}
                             <a href="{% url 'alquila_pistas:IndexView' %}" class="btn btn-secondary">
                                 Cancelar
-                              </a>
+                            </a>
+                            {# Botón de confirmación de eliminación #}
                             <button type="submit" class="btn btn-danger">
                                 Eliminar Grupo
                             </button>

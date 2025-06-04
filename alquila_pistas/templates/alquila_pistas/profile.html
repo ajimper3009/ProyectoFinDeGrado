@@ -4,25 +4,31 @@
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <!-- Tarjeta del perfil -->
+                {# Tarjeta principal del perfil #}
                 <div class="card shadow" style="max-width: 800px; margin: 0 auto;">
                     <div class="card-body text-center">
+                        {# Sección de imagen de perfil #}
                         <div class="mb-4">
+                            {# Formulario para actualizar la imagen de perfil #}
                             <form method="POST" enctype="multipart/form-data" id="profile-image-form">
                                 {% csrf_token %}
+                                {# Input oculto para seleccionar imagen #}
                                 <input type="file" name="profile_image" id="profile-image-input" style="display: none;"
                                        accept="image/*">
                                 <label for="profile-image-input" style="cursor: pointer;">
+                                    {# Contenedor circular para la imagen de perfil #}
                                     <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto"
                                          style="width: 150px; height: 150px;">
                                         {% if profile_user.userprofile.profile_image %}
+                                            {# Muestra la imagen de perfil si existe #}
                                             <img src="{{ profile_user.userprofile.profile_image.url }}"
                                                  class="rounded-circle w-100 h-100"
                                                  style="object-fit: cover;" alt=" ">
-
                                         {% else %}
+                                            {# Muestra la inicial del nombre si no hay imagen #}
                                             <h1 style="font-size: 3.5rem;">{{ profile_user.username.0|upper }}</h1>
                                         {% endif %}
+                                        {# Overlay para cambiar la foto #}
                                         <div class="overlay-text"
                                              style="position: absolute; opacity: 0; transition: opacity 0.3s;">
                                             <i class="fas fa-camera"></i>
@@ -32,39 +38,50 @@
                                 </label>
                             </form>
                         </div>
+                        {# Información básica del usuario #}
                         <h3 class="card-title mb-3" style="font-size: 2rem;">{{ profile_user.username }}</h3>
                         <p class="text-muted" style="font-size: 1.2rem;">{{ profile_user.email }}</p>
 
+                        {# Información detallada del perfil #}
                         {% if profile_user.userprofile %}
                             <div class="border-top pt-4 mt-4">
+                                {# Edad del usuario #}
                                 <div class="row mb-3">
                                     <div class="col-6 text-start">
-                                        <p class="mb-1" style="font-size: 1.2rem;"><i
-                                                class="fas fa-birthday-cake me-2"></i> Edad</p>
+                                        <p class="mb-1" style="font-size: 1.2rem;">
+                                            <i class="fas fa-birthday-cake me-2"></i> Edad
+                                        </p>
                                     </div>
                                     <div class="col-6 text-end">
-                                        <p class="mb-1" style="font-size: 1.2rem;">{{ profile_user.userprofile.age }}
-                                            años</p>
+                                        <p class="mb-1" style="font-size: 1.2rem;">
+                                            {{ profile_user.userprofile.age }} años
+                                        </p>
                                     </div>
                                 </div>
+                                {# Ubicación del usuario #}
                                 <div class="row mb-3">
                                     <div class="col-6 text-start">
-                                        <p class="mb-1" style="font-size: 1.2rem;"><i
-                                                class="fas fa-map-marker-alt me-2"></i> Ubicación</p>
+                                        <p class="mb-1" style="font-size: 1.2rem;">
+                                            <i class="fas fa-map-marker-alt me-2"></i> Ubicación
+                                        </p>
                                     </div>
                                     <div class="col-6 text-end">
-                                        <p class="mb-1"
-                                           style="font-size: 1.2rem;">{{ profile_user.userprofile.location }}</p>
+                                        <p class="mb-1" style="font-size: 1.2rem;">
+                                            {{ profile_user.userprofile.location }}
+                                        </p>
                                     </div>
                                 </div>
+                                {# Género del usuario #}
                                 <div class="row mb-3">
                                     <div class="col-6 text-start">
-                                        <p class="mb-1" style="font-size: 1.2rem;"><i
-                                                class="fas fa-venus-mars me-2"></i> Género</p>
+                                        <p class="mb-1" style="font-size: 1.2rem;">
+                                            <i class="fas fa-venus-mars me-2"></i> Género
+                                        </p>
                                     </div>
                                     <div class="col-6 text-end">
-                                        <p class="mb-1"
-                                           style="font-size: 1.2rem;">{{ profile_user.userprofile.get_gender_type_display }}</p>
+                                        <p class="mb-1" style="font-size: 1.2rem;">
+                                            {{ profile_user.userprofile.get_gender_type_display }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -74,15 +91,20 @@
             </div>
         </div>
     </div>
+
+    {# Sección de reservas del usuario #}
     <div class="row justify-content-center mt-4">
         <div class="col-lg-8">
-            <!-- Tarjeta de reservas -->
             <div class="card shadow" style="max-width: 800px; margin: 0 auto;">
+                {# Encabezado de la sección de reservas #}
                 <div class="card-header bg-primary text-white text-center">
-                    <h4 class="card-title mb-0"><i class="fas fa-calendar-alt me-2"></i> Mis Reservas</h4>
+                    <h4 class="card-title mb-0">
+                        <i class="fas fa-calendar-alt me-2"></i> Mis Reservas
+                    </h4>
                 </div>
                 <div class="card-body">
                     {% if reservations %}
+                        {# Lista de reservas si existen #}
                         <div class="list-group">
                             {% for reservation in reservations %}
                                 <div class="list-group-item list-group-item-action">
@@ -102,8 +124,9 @@
                             {% endfor %}
                         </div>
                     {% else %}
+                        {# Mensaje cuando no hay reservas #}
                         <div class="text-center py-4">
-                            <i class="fas fa-calendar-times fa-3x text-muted mb-3 d-block" style="margin: 0 auto;"></i>
+                            <i class="fas fa-calendar-times fa-3x text-muted mb-3 d-block"></i>
                             <p class="text-muted">No tienes reservas activas.</p>
                             <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-primary">
                                 <i class="fas fa-plus me-2"></i>Hacer una reserva
@@ -115,36 +138,38 @@
         </div>
     </div>
 
+    {# Estilos CSS para la página #}
     <style>
+        /* Estilos para las tarjetas */
         .card {
             border-radius: 15px;
             transition: box-shadow 0.3s ease;
         }
 
+        /* Efectos hover para las tarjetas */
         .card:hover {
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
         }
 
+        /* Estilos para los elementos de la lista de reservas */
         .list-group-item {
             margin-bottom: 10px;
             border-radius: 10px !important;
             transition: transform 0.2s ease;
         }
 
+        /* Efecto hover para los elementos de la lista */
         .list-group-item:hover {
             transform: translateY(-2px);
         }
 
+        /* Estilos para el encabezado de la tarjeta */
         .card-header {
             border-top-left-radius: 15px !important;
             border-top-right-radius: 15px !important;
         }
 
-        .card {
-            border-radius: 20px;
-            padding: 20px;
-        }
-
+        /* Estilos para la imagen de perfil circular */
         .rounded-circle {
             position: relative;
             overflow: hidden;
@@ -152,10 +177,12 @@
             transition: transform 0.3s ease;
         }
 
+        /* Efectos hover para la imagen de perfil */
         .rounded-circle:hover {
             transform: scale(1.05);
         }
 
+        /* Estilos para el overlay de cambio de imagen */
         .rounded-circle:hover .overlay-text {
             opacity: 1 !important;
             background-color: rgba(0, 0, 0, 0.5);
@@ -168,11 +195,13 @@
             color: white;
         }
 
+        /* Estilos para el ícono en el overlay */
         .overlay-text i {
             font-size: 2rem;
             margin-bottom: 0.5rem;
         }
 
+        /* Espaciado general */
         .card-body {
             padding: 2rem;
         }
@@ -182,11 +211,13 @@
         }
     </style>
 
+    {# Script para manejar la actualización de la imagen de perfil #}
     <script>
         document.getElementById('profile-image-input').addEventListener('change', function () {
             const form = document.getElementById('profile-image-form');
             const formData = new FormData(form);
 
+            // Enviar la imagen al servidor
             fetch('{% url "alquila_pistas:update_profile_image" %}', {
                 method: 'POST',
                 body: formData,

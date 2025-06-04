@@ -1,9 +1,11 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %}  {# Hereda de la plantilla base #}
+{% load static %}  {# Carga la biblioteca para manejar archivos estáticos #}
+
 {% block links %}
+    {# Enlace al archivo CSS principal #}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
-        /* Estilos generales */
+        /* Estilos generales para la sección hero */
         .hero-section {
             position: relative;
             padding: 4rem 0;
@@ -12,6 +14,7 @@
             overflow: hidden;
         }
 
+        /* Emoji decorativo en el fondo del hero */
         .hero-section::after {
             content: '🏐';
             position: absolute;
@@ -22,6 +25,7 @@
             transform: rotate(30deg);
         }
 
+        /* Estilos para el título principal */
         .hero-title {
             font-size: 3.5rem;
             font-weight: 700;
@@ -29,13 +33,14 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
+        /* Estilos para el subtítulo */
         .hero-subtitle {
             font-size: 1.5rem;
             margin-bottom: 2rem;
             opacity: 0.9;
         }
 
-        /* Estilos del carrusel mejorados */
+        /* Configuración del carrusel */
         .carousel {
             border-radius: 20px;
             overflow: hidden;
@@ -47,12 +52,14 @@
             border-radius: 20px;
         }
 
+        /* Configuración de las imágenes del carrusel */
         .carousel-img {
             height: 500px;
             object-fit: cover;
             width: 100%;
         }
 
+        /* Estilos para los controles del carrusel */
         .carousel-control-prev,
         .carousel-control-next {
             width: 5%;
@@ -65,7 +72,7 @@
             margin: 0 20px;
         }
 
-        /* Grid mejorado con cartas más grandes */
+        /* Grid de características */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -75,6 +82,7 @@
             margin: 0 auto;
         }
 
+        /* Estilos para las tarjetas de características */
         .feature-card {
             position: relative;
             border-radius: 25px;
@@ -87,23 +95,27 @@
             flex-direction: column;
         }
 
+        /* Efecto hover para las tarjetas */
         .feature-card:hover {
             transform: translateY(-15px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
 
+        /* Contenido de las tarjetas */
         .feature-content {
             padding: 2rem;
             background: white;
             z-index: 2;
         }
 
+        /* Contenedor de imágenes en las tarjetas */
         .feature-img-container {
             flex: 1;
             overflow: hidden;
             position: relative;
         }
 
+        /* Configuración de imágenes en las tarjetas */
         .feature-img {
             width: 100%;
             height: 350px;
@@ -111,10 +123,12 @@
             transition: transform 0.5s ease;
         }
 
+        /* Efecto zoom en las imágenes al hover */
         .feature-card:hover .feature-img {
             transform: scale(1.1);
         }
 
+        /* Estilos para los títulos de las tarjetas */
         .feature-title {
             font-size: 2.2rem;
             font-weight: 700;
@@ -122,6 +136,7 @@
             color: #1565c0;
         }
 
+        /* Estilos para las descripciones de las tarjetas */
         .feature-description {
             font-size: 1.3rem;
             color: #666;
@@ -129,7 +144,7 @@
             line-height: 1.4;
         }
 
-        /* Efecto de brillo al hover */
+        /* Efecto de brillo al hover en las tarjetas */
         .feature-card::after {
             content: '';
             position: absolute;
@@ -150,7 +165,7 @@
             left: 100%;
         }
 
-        /* Animaciones */
+        /* Definición de la animación fadeInUp */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -162,10 +177,12 @@
             }
         }
 
+        /* Clase para aplicar la animación */
         .animate-fade-in {
             animation: fadeInUp 0.8s ease forwards;
         }
 
+        /* Retrasos para las animaciones */
         .delay-1 { animation-delay: 0.2s; }
         .delay-2 { animation-delay: 0.4s; }
         .delay-3 { animation-delay: 0.6s; }
@@ -228,22 +245,24 @@
 {% endblock %}
 
 {% block content %}
-    <!-- Sección Hero -->
+    {# Sección Hero #}
     <section class="hero-section">
         <div class="container text-center">
             <h1 class="hero-title animate-fade-in">Bienvenido a AlquilaPistas</h1>
             <h4 class="hero-subtitle animate-fade-in delay-1">Pistas listas, equipos en marcha.</h4>
         </div>
 
-        <!-- Carousel Mejorado -->
+        {# Carrusel de imágenes #}
         <div class="container">
             <div id="demo" class="carousel slide animate-fade-in delay-2" data-bs-ride="carousel">
+                {# Indicadores del carrusel #}
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
                     <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
                     <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
                 </div>
 
+                {# Contenido del carrusel #}
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img src="{% static 'img/pelota-golpeando-la-red.jpg' %}" alt="playa1" class="carousel-img">
@@ -256,6 +275,7 @@
                     </div>
                 </div>
 
+                {# Controles del carrusel #}
                 <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon"></span>
                 </button>
@@ -266,9 +286,10 @@
         </div>
     </section>
 
-    <!-- Grid de características -->
+    {# Grid de características principales #}
     <div class="container-fluid">
         <div class="features-grid">
+            {# Tarjeta para Crear Grupo #}
             <a href="{% url 'alquila_pistas:create_group' %}" class="text-decoration-none animate-fade-in delay-1">
                 <div class="feature-card">
                     <div class="feature-img-container">
@@ -281,6 +302,7 @@
                 </div>
             </a>
 
+            {# Tarjeta para Unirse a Grupo #}
             <a href="{% url 'alquila_pistas:JoinGroup' %}" class="text-decoration-none animate-fade-in delay-2">
                 <div class="feature-card">
                     <div class="feature-img-container">
@@ -293,6 +315,7 @@
                 </div>
             </a>
 
+            {# Tarjeta para Pistas de Interior #}
             <a href="{% url 'alquila_pistas:SportsPavilionCourtView' %}" class="text-decoration-none animate-fade-in delay-3">
                 <div class="feature-card">
                     <div class="feature-img-container">
@@ -300,11 +323,12 @@
                     </div>
                     <div class="feature-content">
                         <h2 class="feature-title">Pistas de Interior</h2>
-                        <p class="feature-description">Tarifas por hora para todos los bolsillos.</p>
+                        <p class="feature-description">Pistas habilitadas para todos los públicos</p>
                     </div>
                 </div>
             </a>
 
+            {# Tarjeta para Pistas de Exterior #}
             <a href="{% url 'alquila_pistas:BeachCourtView' %}" class="text-decoration-none animate-fade-in delay-4">
                 <div class="feature-card">
                     <div class="feature-img-container">
@@ -312,7 +336,7 @@
                     </div>
                     <div class="feature-content">
                         <h2 class="feature-title">Pistas de Exterior</h2>
-                        <p class="feature-description">Atención al cliente para resolver tus dudas.</p>
+                        <p class="feature-description">Diversión rodeado de naturaleza</p>
                     </div>
                 </div>
             </a>
