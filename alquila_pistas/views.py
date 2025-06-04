@@ -276,6 +276,7 @@ class UpdateProfileImageView(View):
                 'error': str(e)
             }, status=500)
 
+
 """
     Vista que muestra los detalles de una pista específica.
     Permite al usuario ver información detallada de una pista seleccionada.
