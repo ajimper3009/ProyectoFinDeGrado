@@ -22,11 +22,20 @@ from django.views.generic import DetailView
 
 # Create your views here.
 
-
+"""
+    Vista principal donde estará todo el contenido principal de la página.
+    Muestra la página de inicio con contenido accesible solo para usuarios autenticados.
+"""
 class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/index.html'
 
 
+
+"""
+    Vista para crear un grupo.
+    Permite a un usuario autenticado crear un grupo y asignarse como creador.
+    Opcionalmente, permite hacer una reserva asociada al grupo si el formulario lo indica.
+"""
 class CreateGroupView(LoginRequiredMixin, CreateView):
     model = Group
     form_class = GroupForm
@@ -53,11 +62,18 @@ class CreateGroupView(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
 
-
+"""
+    Vista que muestra información 'Sobre nosotros'.
+    Presenta detalles sobre la empresa o proyecto en una página estática.
+"""
 class AboutView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/about_us.html'
 
-
+"""
+    Vista para enviar mensajes de contacto.
+    Permite a usuarios autenticados enviar un formulario de contacto.
+    Envía un email al administrador y muestra mensajes de éxito o error.
+"""
 class ContactView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/contact.html'
 
@@ -90,6 +106,11 @@ class ContactView(LoginRequiredMixin, TemplateView):
         return self.render_to_response(self.get_context_data(form=form))
 
 
+"""
+    Vista para unirse a grupos existentes.
+    Muestra una lista de todos los grupos disponibles con sus datos relacionados.
+    Facilita al usuario elegir y unirse a un grupo.
+"""
 class JoinGroupView(LoginRequiredMixin, ListView):
     model = Group
     template_name = 'alquila_pistas/join_group.html'
@@ -100,15 +121,26 @@ class JoinGroupView(LoginRequiredMixin, ListView):
         return Group.objects.select_related('court', 'reservation').prefetch_related('users').all()
 
 
-
+"""
+    Vista informativa para las pistas del pabellón deportivo.
+    Muestra detalles o imágenes de estas pistas para el usuario.
+"""
 class SportsPavilionCourtView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/sports_pavilion_court.html'
 
 
+"""
+    Vista informativa para las pistas de playa.
+    Muestra detalles o imágenes de estas pistas para el usuario.
+"""
 class BeachCourtView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/beach_court.html'
 
 
+"""
+    Vista para registrar nuevos usuarios.
+    Muestra el formulario de registro y, tras crear el usuario, inicia sesión automáticamente.
+"""
 class RegisterView(FormView):
     template_name = 'registration/register.html'
     form_class = CustomUserCreationForm
@@ -120,6 +152,10 @@ class RegisterView(FormView):
         return super().form_valid(form)
 
 
+"""
+    Vista que confirma que un usuario se ha unido con éxito a un grupo.
+    Añade al usuario a la lista de miembros del grupo seleccionado y muestra mensaje de éxito o error.
+"""
 class JoinGroupSuccessView(LoginRequiredMixin, TemplateView):
     model = Group
     template_name = 'alquila_pistas/joinGroupSuccess.html'
@@ -136,7 +172,11 @@ class JoinGroupSuccessView(LoginRequiredMixin, TemplateView):
             messages.error(request, "El grupo no existe")
             return redirect('alquila_pistas:JoinGroup')
 
-
+"""
+    Vista para eliminar grupos.
+    Primero muestra una página para confirmar la eliminación.
+    Solo permite eliminar el grupo si el usuario pertenece a él.
+"""
 class DeleteGroupView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/delete_group.html'
 
@@ -166,6 +206,10 @@ class DeleteGroupView(LoginRequiredMixin, TemplateView):
         return redirect('alquila_pistas:IndexView')
 
 
+"""
+    Vista que muestra el perfil del usuario autenticado.
+    Incluye la información personal y las reservas hechas por el usuario.
+"""
 class UserProfileView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'alquila_pistas/profile.html'
@@ -192,6 +236,11 @@ class UserProfileView(LoginRequiredMixin, DetailView):
         return context
 
 
+"""
+    Vista para actualizar la imagen de perfil del usuario vía AJAX.
+    Recibe una imagen en la petición POST y la guarda, eliminando la anterior si existe.
+    Retorna JSON con el resultado (éxito o error).
+"""
 @method_decorator(csrf_exempt, name='dispatch')
 class UpdateProfileImageView(View):
     def post(self, request, *args, **kwargs):
@@ -227,17 +276,11 @@ class UpdateProfileImageView(View):
                 'error': str(e)
             }, status=500)
 
-
+"""
+    Vista que muestra los detalles de una pista específica.
+    Permite al usuario ver información detallada de una pista seleccionada.
+"""
 class CourtDetailView(DetailView):
     model = Court
     template_name = 'alquila_pistas/court_detail.html'
     context_object_name = 'court'
-
-
-
-
-
-
-
-
-
