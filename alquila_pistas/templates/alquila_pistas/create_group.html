@@ -1,98 +1,107 @@
-{% extends 'base.html' %}  {# Hereda de la plantilla base #}
-
+{% extends 'base.html' %}
 {% block content %}
-    {# Contenedor principal con padding vertical #}
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                {# Tarjeta principal del formulario #}
-                <div class="bg-white rounded-4 shadow-sm p-4 p-md-5 card-hover">
-                    {# Encabezado del formulario #}
-                    <div class="text-center mb-4">
-                        <h2 class="display-5 fw-bold text-primary">Crear Nuevo Grupo</h2>
-                        <p class="text-muted">Complete los detalles para crear su grupo deportivo</p>
+                <!-- Sección de introducción -->
+                <section class="intro-section rounded-4 mb-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-center animate-fade-in">
+                                <i class="fas fa-users fa-3x text-white mb-3 icon-bounce"></i>
+                                <h1 class="display-5 fw-bold text-white mb-3">Crear Nuevo Grupo</h1>
+                                <p class="intro-text text-white-50">
+                                    Complete el formulario para crear su grupo deportivo y comenzar a organizar sus actividades
+                                </p>
+                            </div>
+                        </div>
                     </div>
+                </section>
 
-                    {# Formulario principal #}
+                <!-- Formulario Principal -->
+                <div class="form-container animate-fade-in">
                     <form method="post" class="needs-validation" novalidate>
                         {% csrf_token %}
 
-                        {# Campo: Nombre del grupo #}
-                        <div class="mb-4">
-                            <label for="{{ form.name.id_for_label }}" class="form-label text-dark fw-medium">
-                                Nombre del Grupo
+                        <!-- Campos del formulario -->
+                        <div class="form-item animate-fade-in delay-1">
+                            <label for="{{ form.name.id_for_label }}" class="form-label fw-bold text-dark">
+                                <i class="fas fa-tag me-2"></i>Nombre del Grupo
                             </label>
                             {{ form.name }}
                             {% if form.name.errors %}
-                                <div class="text-danger mt-1">{{ form.name.errors }}</div>
+                                <div class="error-message slide-in">{{ form.name.errors }}</div>
                             {% endif %}
                         </div>
 
-                        {# Campo: Selección de pista deportiva #}
-                        <div class="mb-4">
-                            <label for="{{ form.court.id_for_label }}" class="form-label text-dark fw-medium">
-                                Pista Deportiva
+                        <div class="form-item animate-fade-in delay-1">
+                            <label for="{{ form.court.id_for_label }}" class="form-label fw-bold text-dark">
+                                <i class="fas fa-volleyball-ball me-2"></i>Pista Deportiva
                             </label>
                             {{ form.court }}
                             {% if form.court.errors %}
-                                <div class="text-danger mt-1">{{ form.court.errors }}</div>
+                                <div class="error-message slide-in">{{ form.court.errors }}</div>
                             {% endif %}
                         </div>
 
-                        {# Switch para activar/desactivar la reserva #}
-                        <div class="form-check form-switch mb-4">
-                            {{ form.make_reservation }}
-                            <label class="form-check-label ms-2 text-dark" for="{{ form.make_reservation.id_for_label }}">
-                                ¿Desea realizar una reserva ahora?
-                            </label>
+                        <div class="form-item animate-fade-in delay-2">
+                            <div class="form-check form-switch">
+                                {{ form.make_reservation }}
+                                <label class="form-check-label fw-bold text-dark" for="{{ form.make_reservation.id_for_label }}">
+                                    <i class="fas fa-calendar-check me-2"></i>¿Desea realizar una reserva ahora?
+                                </label>
+                            </div>
                         </div>
 
-                        {# Campos de reserva (inicialmente ocultos) #}
-                        <div id="reservation-fields" style="display: none;">
-                            <hr class="my-4">
-                            <h4 class="mb-3 text-primary">Detalles de la Reserva</h4>
+                        <!-- Campos de reserva -->
+                        <div id="reservation-fields" class="animate-fade-in delay-2">
+                            <div class="section-divider">
+                                <h3 class="text-primary fw-bold mb-4">Detalles de la Reserva</h3>
+                            </div>
 
-                            {# Campo: Nombre de la reserva #}
-                            <div class="mb-4">
-                                <label for="{{ form.reservation_name.id_for_label }}" class="form-label text-dark fw-medium">
-                                    Nombre de la Reserva
+                            <div class="form-item">
+                                <label for="{{ form.reservation_name.id_for_label }}" class="form-label fw-bold text-dark">
+                                    <i class="fas fa-bookmark me-2"></i>Nombre de la Reserva
                                 </label>
                                 {{ form.reservation_name }}
                                 {% if form.reservation_name.errors %}
-                                    <div class="text-danger mt-1">{{ form.reservation_name.errors }}</div>
+                                    <div class="error-message slide-in">{{ form.reservation_name.errors }}</div>
                                 {% endif %}
                             </div>
 
-                            {# Campo: Fecha de la reserva #}
-                            <div class="mb-4">
-                                <label for="{{ form.date.id_for_label }}" class="form-label text-dark fw-medium">
-                                    Fecha
-                                </label>
-                                {{ form.date }}
-                                {% if form.date.errors %}
-                                    <div class="text-danger mt-1">{{ form.date.errors }}</div>
-                                {% endif %}
-                            </div>
-
-                            {# Campo: Hora de inicio #}
-                            <div class="mb-4">
-                                <label for="{{ form.start_time.id_for_label }}" class="form-label text-dark fw-medium">
-                                    Hora de Inicio
-                                </label>
-                                {{ form.start_time }}
-                                {% if form.start_time.errors %}
-                                    <div class="text-danger mt-1">{{ form.start_time.errors }}</div>
-                                {% endif %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-item">
+                                        <label for="{{ form.date.id_for_label }}" class="form-label fw-bold text-dark">
+                                            <i class="fas fa-calendar-alt me-2"></i>Fecha
+                                        </label>
+                                        {{ form.date }}
+                                        {% if form.date.errors %}
+                                            <div class="error-message slide-in">{{ form.date.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-item">
+                                        <label for="{{ form.start_time.id_for_label }}" class="form-label fw-bold text-dark">
+                                            <i class="fas fa-clock me-2"></i>Hora de Inicio
+                                        </label>
+                                        {{ form.start_time }}
+                                        {% if form.start_time.errors %}
+                                            <div class="error-message slide-in">{{ form.start_time.errors }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        {# Botones de acción #}
-                        <div class="d-grid gap-2 d-flex justify-content-between mt-4">
-                            <a href="{% url 'alquila_pistas:IndexView' %}" class="btn btn-outline-primary btn-lg px-4">
-                                Volver
+                        <!-- Botones de acción -->
+                        <div class="d-flex justify-content-between mt-5">
+                            <a href="{% url 'alquila_pistas:IndexView' %}" class="btn btn-outline-primary btn-lg px-4 hover-button">
+                                <i class="fas fa-arrow-left me-2"></i>Volver
                             </a>
-                            <button type="submit" class="btn btn-primary btn-lg px-4">
-                                Crear Grupo
+                            <button type="submit" class="btn btn-primary btn-lg px-4 hover-button">
+                                <i class="fas fa-plus-circle me-2"></i>Crear Grupo
                             </button>
                         </div>
                     </form>
@@ -101,7 +110,124 @@
         </div>
     </div>
 
-    {# Script para manejar la visibilidad de los campos de reserva #}
+    <style>
+        /* Sección de introducción */
+        .intro-section {
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+            color: white;
+            padding: 60px 0;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .intro-section::after {
+            content: '👥';
+            position: absolute;
+            font-size: 200px;
+            right: -50px;
+            top: -50px;
+            opacity: 0.1;
+            transform: rotate(30deg);
+        }
+
+        /* Contenedor del formulario */
+        .form-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Elementos del formulario */
+        .form-item {
+            margin-bottom: 2rem;
+        }
+
+        .form-control, .form-select {
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.25rem rgba(13,110,253,0.1);
+        }
+
+        /* Switch personalizado */
+        .form-switch .form-check-input {
+            width: 3.5em;
+            height: 2em;
+            margin-right: 1em;
+        }
+
+        /* Mensajes de error */
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+            background-color: rgba(220,53,69,0.1);
+        }
+
+        /* Animaciones */
+        .icon-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Botones */
+        .hover-button {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hover-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+        }
+
+        /* Delays para animaciones */
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* Divisor de sección */
+        .section-divider {
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 2px solid rgba(0,0,0,0.1);
+        }
+    </style>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const reservationToggle = document.querySelector('#{{ form.make_reservation.id_for_label }}');
@@ -110,7 +236,7 @@
             function toggleReservationFields() {
                 if (reservationToggle.checked) {
                     reservationFields.style.display = 'block';
-                    reservationFields.classList.add('fade-in');
+                    reservationFields.classList.add('animate-fade-in');
                 } else {
                     reservationFields.style.display = 'none';
                 }
@@ -120,65 +246,4 @@
             toggleReservationFields();
         });
     </script>
-
-    {# Estilos CSS personalizados #}
-    <style>
-        /* Animación de fade in */
-        .fade-in {
-            animation: fadeIn 0.3s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Efecto hover para la tarjeta */
-        .card-hover {
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.1);
-        }
-
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
-            border-color: rgba(13, 110, 253, 0.3);
-        }
-
-        /* Estilos para los campos del formulario */
-        .form-control, .form-select {
-            padding: 0.75rem 1rem;
-            font-size: 1rem;
-            border-radius: 0.5rem;
-            border: 1px solid #dee2e6;
-        }
-
-        /* Estilos para el foco de los campos */
-        .form-control:focus, .form-select:focus {
-            border-color: #0d6efd;
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-        }
-
-        /* Estilos para el switch de reserva */
-        .form-switch .form-check-input {
-            width: 3em;
-            height: 1.5em;
-            margin-right: 0.5em;
-        }
-
-        /* Estilos para mensajes de error */
-        .text-danger {
-            font-size: 0.875rem;
-        }
-
-        /* Estilos para campos de fecha y hora */
-        input[type="date"], input[type="time"] {
-            min-height: calc(1.5em + 1rem + 2px);
-        }
-
-        /* Color para las etiquetas */
-        .form-label {
-            color: #212529 !important;
-        }
-    </style>
 {% endblock %}
