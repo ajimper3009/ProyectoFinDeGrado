@@ -54,9 +54,6 @@ body {
   transform: translateY(0);
 }
 
-
-
-
 @media (max-width: 768px) {
     .grid-2x2 {
         grid-template-columns: 1fr;

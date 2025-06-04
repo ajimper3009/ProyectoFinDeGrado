@@ -21,6 +21,8 @@ from django.views.generic import DetailView
 
 
 # Create your views here.
+
+
 class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'alquila_pistas/index.html'
 
@@ -29,7 +31,7 @@ class CreateGroupView(LoginRequiredMixin, CreateView):
     model = Group
     form_class = GroupForm
     template_name = 'alquila_pistas/create_group.html'
-    success_url = reverse_lazy('alquila_pistas:IndexView')
+    success_url = reverse_lazy('alquila_pistas:JoinGroup')
 
     def form_valid(self, form):
         group = form.save(commit=False)
@@ -155,6 +157,7 @@ class DeleteGroupView(LoginRequiredMixin, TemplateView):
                 group_name = group.name
                 group.delete()
                 messages.success(request, f'El grupo "{group_name}" ha sido eliminado correctamente')
+
             else:
                 messages.error(request, "No tienes permiso para eliminar este grupo")
         except Group.DoesNotExist:
