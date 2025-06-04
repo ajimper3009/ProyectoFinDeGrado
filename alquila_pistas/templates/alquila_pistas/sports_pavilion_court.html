@@ -2,13 +2,9 @@
 {% load static %}
 {% block links %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Noticias</title>
+        {# Estilos específicos para esta página #}
         <style>
+            /* Estilos para las tarjetas */
             .card-title {
                 font-size: 1.25rem;
                 font-weight: bold;
@@ -24,13 +20,14 @@
                 border-top: none;
             }
 
+            /* Control del tamaño de las imágenes en las tarjetas */
             .card-img-top {
                 width: 100%;
                 height: 200px;
                 object-fit: cover;
             }
 
-            /* Estilos para el filtro */
+            /* Estilos para la sección de filtros */
             .filter-section {
                 margin-bottom: 2rem;
                 padding: 1rem;
@@ -43,11 +40,12 @@
                 min-width: 200px;
             }
 
-            /* Animaciones y transiciones */
+            /* Animaciones y efectos de transición */
             .col-md-4 {
                 transition: opacity 0.3s ease-in-out;
             }
 
+            /* Estilos para el selector de filtro */
             .form-select {
                 padding: 0.75rem 1rem;
                 border-radius: 0.5rem;
@@ -60,6 +58,7 @@
                 box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
             }
 
+            /* Efectos hover para las tarjetas */
             .card {
                 transition: transform 0.3s ease, box-shadow 0.3s ease;
             }
@@ -69,6 +68,7 @@
                 box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
             }
         </style>
+
     </head>
     <body>
 
@@ -78,8 +78,10 @@
             <div class="row align-items-center">
                 <h2 class="text-center text-primary fw-bold mb-5">Pistas de Interior</h2>
                 <div class="col-md-6">
+                    {# Selector de filtro por ubicación #}
                     <label for="locationFilter" class="form-label fw-medium">Filtrar por ubicación:</label>
                     <select id="locationFilter" class="form-select">
+                        {# Opciones de ubicaciones disponibles #}
                         <option value="todos">Todas las ubicaciones</option>
                         <option value="Granada">Granada</option>
                         <option value="Sevilla">Sevilla</option>
@@ -102,10 +104,12 @@
                     <div class="card-body">
                         <h5 class="card-title">Pabellón Moisés Ruiz</h5>
                         <p class="card-text"><strong>Localización: </strong>Almería</p>
-                        <p class="card-text">Instalación moderna y emblemática, sede del Unicaja Almería, uno de los equipos más laureados de la Superliga Masculina de Voleibol.</p>
+                        <p class="card-text">Instalación moderna y emblemática, sede del Unicaja Almería, uno de los
+                            equipos más laureados de la Superliga Masculina de Voleibol.</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:court_detail' 1 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 1 %}" class="btn btn-outline-primary btn-sm">Ver
+                            Localización</a>
                     </div>
                     <div class="card-footer text-end">
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
@@ -124,7 +128,8 @@
                         <p class="card-text">Diseñado específicamente para voleyball, con gradas retráctiles</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:court_detail' 2 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 2 %}" class="btn btn-outline-primary btn-sm">Ver
+                            Localización</a>
                     </div>
                     <div class="card-footer text-end">
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
@@ -144,7 +149,8 @@
                             retransmisión en streaming</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:court_detail' 3 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 3 %}" class="btn btn-outline-primary btn-sm">Ver
+                            Localización</a>
                     </div>
                     <div class="card-footer text-end">
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
@@ -160,10 +166,12 @@
                     <div class="card-body">
                         <h5 class="card-title">Pabellón Municipal El Limón</h5>
                         <p class="card-text"><strong>Localización: </strong>Alhaurín de la Torre (Málaga)</p>
-                        <p class="card-text">Punto clave para el deporte base, donde se realizan actividades municipales, entrenamientos y torneos de voleibol escolar.</p>
+                        <p class="card-text">Punto clave para el deporte base, donde se realizan actividades
+                            municipales, entrenamientos y torneos de voleibol escolar.</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:court_detail' 6 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 6 %}" class="btn btn-outline-primary btn-sm">Ver
+                            Localización</a>
                     </div>
                     <div class="card-footer text-end">
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
@@ -183,7 +191,8 @@
                             techos altos y marcaje digital</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:court_detail' 7 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 7 %}" class="btn btn-outline-primary btn-sm">Ver
+                            Localización</a>
                     </div>
                     <div class="card-footer text-end">
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
@@ -202,7 +211,8 @@
                         <p class="card-text">Estructura moderna, con enfoque en el disfrute de los espectadores</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:court_detail' 8 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 8 %}" class="btn btn-outline-primary btn-sm">Ver
+                            Localización</a>
                     </div>
                     <div class="card-footer text-end">
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
@@ -222,7 +232,8 @@
                             Cádiz</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:court_detail' 9 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 9 %}" class="btn btn-outline-primary btn-sm">Ver
+                            Localización</a>
                     </div>
                     <div class="card-footer text-end">
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
@@ -242,7 +253,8 @@
                             graderíos móviles y sistema de climatizacion eficiente</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:court_detail' 10 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 10 %}" class="btn btn-outline-primary btn-sm">Ver
+                            Localización</a>
                     </div>
                     <div class="card-footer text-end">
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Mas
@@ -262,7 +274,8 @@
                             Destaca por su ambiente familiar</p>
                     </div>
                     <div class="card-footer text-end">
-                        <a href="{% url 'alquila_pistas:court_detail' 11 %}" class="btn btn-outline-primary btn-sm">Ver Localización</a>
+                        <a href="{% url 'alquila_pistas:court_detail' 11 %}" class="btn btn-outline-primary btn-sm">Ver
+                            Localización</a>
                     </div>
                     <div class="card-footer text-end">
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
@@ -273,21 +286,26 @@
         </div>
     </div>
 
+    {# Script para el funcionamiento del filtro #}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Obtener elementos del DOM
             const locationFilter = document.getElementById('locationFilter');
             const cards = document.querySelectorAll('.card');
 
+            // Evento para el cambio en el filtro
             locationFilter.addEventListener('change', function () {
                 const selectedLocation = this.value.toLowerCase();
 
+                // Filtrar las tarjetas según la ubicación seleccionada
                 cards.forEach(card => {
                     const locationText = card.querySelector('.card-text strong').nextSibling.textContent.toLowerCase();
                     const cardContainer = card.closest('.col-md-4');
 
+                    // Mostrar u ocultar tarjetas según el filtro
                     if (selectedLocation === 'todos' || locationText.includes(selectedLocation.toLowerCase())) {
                         cardContainer.style.display = 'block';
-                        // Añadimos una animación suave
+                        // Animación de fade in
                         cardContainer.style.opacity = '0';
                         setTimeout(() => {
                             cardContainer.style.opacity = '1';
@@ -299,7 +317,5 @@
             });
         });
     </script>
-
     </body>
-    </html>
 {% endblock %}
