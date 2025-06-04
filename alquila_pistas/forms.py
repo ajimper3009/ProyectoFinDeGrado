@@ -5,7 +5,11 @@ from alquila_pistas.models import *
 
 User = get_user_model()
 
-
+"""
+    Formulario para crear un grupo y opcionalmente hacer una reserva al mismo tiempo.
+    Incluye campos adicionales para permitir al usuario unirse automáticamente al grupo
+    y proporcionar detalles para realizar una reserva si lo desea.
+"""
 class GroupForm(forms.ModelForm):
     auto_join = forms.BooleanField(
         label='Unirme automáticamente al grupo',
@@ -38,6 +42,7 @@ class GroupForm(forms.ModelForm):
         label='Hora de inicio'
     )
 
+    # Define los campos del modelo Group que se utilizaran en el formulario
     class Meta:
         model = Group
         fields = ['name', 'court']
@@ -46,6 +51,10 @@ class GroupForm(forms.ModelForm):
             'court': 'Pista',
         }
 
+    """
+        Valida que si el usuario desea hacer una reserva ('make_reservation' activado),
+        entonces todos los campos relacionados con la reserva deben ser completados.
+    """
     def clean(self):
         cleaned_data = super().clean()
         make_reservation = cleaned_data.get('make_reservation')
@@ -59,6 +68,10 @@ class GroupForm(forms.ModelForm):
         return cleaned_data
 
 
+"""
+    Formulario de contacto que permite a los usuarios enviar su nombre, email y mensaje.
+    Se usa típicamente en la sección de contacto del sitio web.
+"""
 class ContactForm(forms.Form):
     name = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'nombreInput'})
@@ -70,7 +83,10 @@ class ContactForm(forms.Form):
         widget=forms.Textarea(attrs={'class': 'form-control', 'id': 'mensajeTextarea'})
     )
 
-
+"""
+    Formulario personalizado para el registro de nuevos usuarios.
+    Extiende el formulario estándar de creación de usuarios de Django e incluye el campo de email.
+"""
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     error_messages = {
