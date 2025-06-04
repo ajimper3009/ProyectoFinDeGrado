@@ -30,7 +30,7 @@ class Court(models.Model):
         return f"{self.name}, {self.location}, {self.court_type}"
 
 class Reservation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Cambiado a User de Django
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     court = models.ForeignKey(Court, on_delete=models.CASCADE)
     date = models.CharField(max_length=50)
     start_time = models.CharField(max_length=50)
@@ -42,7 +42,7 @@ class Reservation(models.Model):
 
 class Group(models.Model):
     name = models.CharField(max_length=50)
-    users = models.ManyToManyField(User)  # Cambiado a User de Django
+    users = models.ManyToManyField(User)
     court = models.ForeignKey(Court, on_delete=models.CASCADE, null=True, blank=True)
     reservation = models.OneToOneField(Reservation, on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
