@@ -207,10 +207,12 @@ class DeleteGroupView(LoginRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         group_id = request.POST.get('group_id')
         try:
+            reservation = Reservation.objects.get(group=group_id)
             group = Group.objects.get(id=group_id)
             if request.user.username in [user.username for user in group.users.all()]:
                 group_name = group.name
                 group.delete()
+                reservation.delete()
                 messages.success(request, f'El grupo "{group_name}" ha sido eliminado correctamente')
 
             else:

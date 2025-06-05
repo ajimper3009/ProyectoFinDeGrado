@@ -19,7 +19,7 @@ urlpatterns = [
     path('update-profile-image/', views.UpdateProfileImageView.as_view(), name='update_profile_image'),
     #Ruta para la vista de Contacto
     path('contact/', views.ContactView.as_view(), name='ContactView'),
-    #Ruta para la vista deUnirse a un Grupo
+    #Ruta para la vista de Unirse a un Grupo
     path('join-group/', views.JoinGroupView.as_view(), name='JoinGroup'),
     #Ruta para la vista de que te has unido a un grupo correctamente
     path('join-group-success/', views.JoinGroupSuccessView.as_view(), name='JoinGroupSuccessView'),
