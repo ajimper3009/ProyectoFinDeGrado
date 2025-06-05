@@ -156,6 +156,8 @@ class RegisterView(FormView):
     Vista que confirma que un usuario se ha unido con éxito a un grupo.
     Añade al usuario a la lista de miembros del grupo seleccionado y muestra mensaje de éxito o error.
 """
+
+
 class JoinGroupSuccessView(LoginRequiredMixin, TemplateView):
     model = Group
     template_name = 'alquila_pistas/joinGroupSuccess.html'
@@ -164,10 +166,22 @@ class JoinGroupSuccessView(LoginRequiredMixin, TemplateView):
         group_id = request.POST.get('group_id')
         try:
             group = Group.objects.get(id=group_id)
-            # Usamos directamente el usuario actual
+
+            # Verificar si el usuario ya está en el grupo
+            if request.user in group.users.all():
+                messages.error(request, "Ya eres miembro de este grupo")
+                return redirect('alquila_pistas:JoinGroup')
+
+            # Verificar si el grupo ya tiene 12 personas
+            if group.users.count() >= 12:
+                messages.error(request, "El grupo ya ha alcanzado el límite máximo de 12 personas")
+                return redirect('alquila_pistas:JoinGroup')
+
+            # Si esta bien, añadimos el usuario
             group.users.add(request.user)
             messages.success(request, "Te has unido al grupo exitosamente")
             return redirect('alquila_pistas:JoinGroupSuccessView')
+
         except Group.DoesNotExist:
             messages.error(request, "El grupo no existe")
             return redirect('alquila_pistas:JoinGroup')

@@ -2,74 +2,178 @@
 {% load static %}
 {% block links %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        {# Estilos específicos para esta página #}
-        <style>
-            /* Estilos para las tarjetas */
-            .card-title {
-                font-size: 1.25rem;
-                font-weight: bold;
-            }
+    {# Estilos específicos para esta página #}
+    <style>
+        /* Estilos para el encabezado */
+        .header-section {
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
 
-            .card-text {
-                font-size: 1rem;
-                line-height: 1.6;
-            }
+        .header-section h2 {
+            color: white;
+            margin-bottom: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
 
-            .card-footer {
-                background-color: transparent;
-                border-top: none;
-            }
+        /* Estilos para la sección de filtros */
+        .filter-section {
+            background: white;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
 
-            /* Control del tamaño de las imágenes en las tarjetas */
+        .filter-section select {
+            min-width: 250px;
+            transition: all 0.3s ease;
+        }
+
+        .form-select {
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            font-size: 1rem;
+            cursor: pointer;
+            background-color: white;
+        }
+
+        .form-select:focus {
+            border-color: #1565c0;
+            box-shadow: 0 0 0 0.25rem rgba(21, 101, 192, 0.1);
+        }
+
+        /* Estilos para las tarjetas */
+        .card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img-top {
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            color: #1565c0;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .card-text {
+            color: #424242;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .card-text strong {
+            color: #1565c0;
+            font-weight: 600;
+        }
+
+        /* Estilos para los botones */
+        .card-footer {
+            background: transparent;
+            border-top: none;
+            padding: 0.5rem 1.5rem 1.5rem;
+        }
+
+        .btn-outline-primary {
+            border-width: 2px;
+            padding: 0.5rem 1.25rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .btn-outline-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(13, 110, 253, 0.15);
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .carousel-img {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Media queries */
+        @media (max-width: 768px) {
             .card-img-top {
-                width: 100%;
-                height: 200px;
-                object-fit: cover;
-            }
-
-            /* Estilos para la sección de filtros */
-            .filter-section {
-                margin-bottom: 2rem;
-                padding: 1rem;
-                background-color: #f8f9fa;
-                border-radius: 10px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                height: 180px;
             }
 
             .filter-section select {
-                min-width: 200px;
+                min-width: 100%;
             }
 
-            /* Animaciones y efectos de transición */
-            .col-md-4 {
-                transition: opacity 0.3s ease-in-out;
+            .card-title {
+                font-size: 1.2rem;
             }
 
-            /* Estilos para el selector de filtro */
-            .form-select {
-                padding: 0.75rem 1rem;
-                border-radius: 0.5rem;
-                border: 1px solid #dee2e6;
-                cursor: pointer;
+            .btn-outline-primary {
+                width: 100%;
+                margin-bottom: 0.5rem;
             }
+        }
 
-            .form-select:focus {
-                border-color: #0d6efd;
-                box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-            }
+        /* Badge de localización */
+        .location-badge {
+            display: inline-block;
+            background: rgba(21, 101, 192, 0.1);
+            color: #1565c0;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
 
-            /* Efectos hover para las tarjetas */
-            .card {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
+        /* Mejoras en la accesibilidad */
+        .form-label {
+            color: #424242;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
 
-            .card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-            }
-        </style>
-
-    </head>
+        /* Sombras suaves */
+        .shadow-sm {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+        }
+    </style>
     <body>
 
     <div class="container my-5">
@@ -107,16 +211,16 @@
                         <p class="card-text">Instalación moderna y emblemática, sede del Unicaja Almería, uno de los
                             equipos más laureados de la Superliga Masculina de Voleibol.</p>
                     </div>
-                    <div class="card-footer text-end">
+                    <div class="card-footer d-flex justify-content-between">
                         <a href="{% url 'alquila_pistas:court_detail' 1 %}" class="btn btn-outline-primary btn-sm">Ver
                             Localización</a>
-                    </div>
-                    <div class="card-footer text-end">
+
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
                             Grupo</a>
                     </div>
                 </div>
             </div>
+
 
             <!-- Carta 2 -->
             <div class="col-md-4">
@@ -127,11 +231,10 @@
                         <p class="card-text"><strong>Localización: </strong>Granada</p>
                         <p class="card-text">Diseñado específicamente para voleyball, con gradas retráctiles</p>
                     </div>
-                    <div class="card-footer text-end">
+                    <div class="card-footer d-flex justify-content-between">
                         <a href="{% url 'alquila_pistas:court_detail' 2 %}" class="btn btn-outline-primary btn-sm">Ver
                             Localización</a>
-                    </div>
-                    <div class="card-footer text-end">
+
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
                             Grupo</a>
                     </div>
@@ -148,11 +251,10 @@
                         <p class="card-text">Recinto de alto rendimiento con tecnología de seguimiento de movimiento y
                             retransmisión en streaming</p>
                     </div>
-                    <div class="card-footer text-end">
+                    <div class="card-footer d-flex justify-content-between">
                         <a href="{% url 'alquila_pistas:court_detail' 3 %}" class="btn btn-outline-primary btn-sm">Ver
                             Localización</a>
-                    </div>
-                    <div class="card-footer text-end">
+
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
                             Grupo</a>
                     </div>
@@ -169,11 +271,10 @@
                         <p class="card-text">Punto clave para el deporte base, donde se realizan actividades
                             municipales, entrenamientos y torneos de voleibol escolar.</p>
                     </div>
-                    <div class="card-footer text-end">
+                    <div class="card-footer d-flex justify-content-between">
                         <a href="{% url 'alquila_pistas:court_detail' 6 %}" class="btn btn-outline-primary btn-sm">Ver
                             Localización</a>
-                    </div>
-                    <div class="card-footer text-end">
+
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
                             Grupo</a>
                     </div>
@@ -190,11 +291,10 @@
                         <p class="card-text">Reconocido por su escuela de formación de voleyball. Tiene pistas con
                             techos altos y marcaje digital</p>
                     </div>
-                    <div class="card-footer text-end">
+                    <div class="card-footer d-flex justify-content-between">
                         <a href="{% url 'alquila_pistas:court_detail' 7 %}" class="btn btn-outline-primary btn-sm">Ver
                             Localización</a>
-                    </div>
-                    <div class="card-footer text-end">
+
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
                             Grupo</a>
                     </div>
@@ -210,11 +310,10 @@
                         <p class="card-text"><strong>Localización: </strong>Huelva</p>
                         <p class="card-text">Estructura moderna, con enfoque en el disfrute de los espectadores</p>
                     </div>
-                    <div class="card-footer text-end">
+                    <div class="card-footer d-flex justify-content-between">
                         <a href="{% url 'alquila_pistas:court_detail' 8 %}" class="btn btn-outline-primary btn-sm">Ver
                             Localización</a>
-                    </div>
-                    <div class="card-footer text-end">
+
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
                             Grupo</a>
                     </div>
@@ -231,11 +330,10 @@
                         <p class="card-text">Con vistas al parque natural, es una referencia al voleyball en la bahia de
                             Cádiz</p>
                     </div>
-                    <div class="card-footer text-end">
+                    <div class="card-footer d-flex justify-content-between">
                         <a href="{% url 'alquila_pistas:court_detail' 9 %}" class="btn btn-outline-primary btn-sm">Ver
                             Localización</a>
-                    </div>
-                    <div class="card-footer text-end">
+
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
                             Grupo</a>
                     </div>
@@ -252,11 +350,10 @@
                         <p class="card-text">Instalación polivalente especializada en deportes de pista. Incluye
                             graderíos móviles y sistema de climatizacion eficiente</p>
                     </div>
-                    <div class="card-footer text-end">
+                    <div class="card-footer d-flex justify-content-between">
                         <a href="{% url 'alquila_pistas:court_detail' 10 %}" class="btn btn-outline-primary btn-sm">Ver
                             Localización</a>
-                    </div>
-                    <div class="card-footer text-end">
+
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Mas
                             Información</a>
                     </div>
@@ -273,11 +370,10 @@
                         <p class="card-text">Pabellon comunitario con una pista oficial y salas de entrenamiento.
                             Destaca por su ambiente familiar</p>
                     </div>
-                    <div class="card-footer text-end">
+                    <div class="card-footer d-flex justify-content-between">
                         <a href="{% url 'alquila_pistas:court_detail' 11 %}" class="btn btn-outline-primary btn-sm">Ver
                             Localización</a>
-                    </div>
-                    <div class="card-footer text-end">
+
                         <a href="{% url 'alquila_pistas:create_group' %}" class="btn btn-outline-primary btn-sm">Crear
                             Grupo</a>
                     </div>
