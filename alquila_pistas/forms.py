@@ -11,12 +11,6 @@ User = get_user_model()
     y proporcionar detalles para realizar una reserva si lo desea.
 """
 class GroupForm(forms.ModelForm):
-    auto_join = forms.BooleanField(
-        label='Unirme automáticamente al grupo',
-        required=False,
-        initial=True,
-        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
-    )
 
     make_reservation = forms.BooleanField(
         required=False,
