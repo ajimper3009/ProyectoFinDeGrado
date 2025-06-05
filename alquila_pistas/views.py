@@ -54,6 +54,7 @@ class CreateGroupView(LoginRequiredMixin, CreateView):
                 court=form.cleaned_data['court'],
                 date=form.cleaned_data['date'],
                 start_time=form.cleaned_data['start_time'],
+                finish_time=form.cleaned_data['finish_time'],
                 name_reservation=form.cleaned_data['reservation_name'],
                 user=User.objects.get(id=self.request.user.id),
                 group=group

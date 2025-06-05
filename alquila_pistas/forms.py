@@ -21,19 +21,22 @@ class GroupForm(forms.ModelForm):
     reservation_name = forms.CharField(
         max_length=100,
         required=False,
-        label='Nombre del usuario que hará la reserva'
     )
 
     date = forms.DateField(
         required=False,
         widget=forms.DateInput(attrs={'type': 'date'}),
-        label='Fecha'
+
     )
 
     start_time = forms.TimeField(
         required=False,
         widget=forms.TimeInput(attrs={'type': 'time'}),
-        label='Hora de inicio'
+
+    )
+    finish_time = forms.TimeField(
+        required=False,
+        widget=forms.TimeInput(attrs={'type': 'time'}),
     )
 
     # Define los campos del modelo Group que se utilizaran en el formulario
