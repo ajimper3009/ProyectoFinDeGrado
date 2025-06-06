@@ -1,2 +1,59 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Django stuff:
+db.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
+*.mo
+
+# Media and static files (generated)
+/media/
+staticfiles/
+static/
+
+# Environment variables
 .env
-.venv
+.env.*
+
+# Pipenv, Poetry, Pip tools
+Pipfile.lock
+poetry.lock
+
+# VSCode and PyCharm settings
+.vscode/
+.idea/
+
+# Virtualenv
+venv/
+.env/
+
+# Coverage reports
+htmlcov/
+.coverage
+.tox/
+.nox/
+coverage.xml
+
+# MyPy and Pylint
+.mypy_cache/
+.pyre/
+.pytype/
+pylint-report.txt
+
+# Docker
+*.pid
+*.seed
+*.bak
+docker-compose.override.yml
+
+# MacOS and Linux system files
+.DS_Store
+Thumbs.db
