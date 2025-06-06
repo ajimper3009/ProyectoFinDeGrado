@@ -9,6 +9,7 @@ User = get_user_model()
     Formulario para crear un grupo y opcionalmente hacer una reserva al mismo tiempo.
     Incluye campos adicionales para permitir al usuario unirse automáticamente al grupo
     y proporcionar detalles para realizar una reserva si lo desea.
+    
 """
 class GroupForm(forms.ModelForm):
 
