@@ -31,7 +31,6 @@ urlpatterns = [
     path('beach-court/', views.BeachCourtView.as_view(), name='BeachCourtView'),
     #Ruta para la vista de detalle de una pista
     path('courts/<int:pk>/', CourtDetailView.as_view(), name='court_detail'),
-
     #Ruta para el login, logout y registro
     path('login/', LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout', LogoutView.as_view(next_page='/'), name='logout'),
