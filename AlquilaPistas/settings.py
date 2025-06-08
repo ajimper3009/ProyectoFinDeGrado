@@ -83,6 +83,12 @@ TEMPLATES = [
     },
 ]
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://alquilapistas.alejandrojimenez.tech',
+]
+
 WSGI_APPLICATION = 'AlquilaPistas.wsgi.application'
 
 # Database
