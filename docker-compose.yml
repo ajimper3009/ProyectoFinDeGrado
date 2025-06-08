@@ -74,7 +74,7 @@ services:
       - "traefik.http.routers.web.rule=Host(`alquilapistas.alejandrojimenez.tech`)"
       - "traefik.http.routers.web.entrypoints=websecure"
       - "traefik.http.routers.web.tls.certresolver=myresolver"
-      - "traefik.http.services.web.loadbalancer.server.port=8000"
+      - "traefik.http.services.web.loadbalancer.server.port=8001"
 
   db:
     image: postgres:15
